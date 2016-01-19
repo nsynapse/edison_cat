@@ -1,0 +1,154 @@
+{% extends "theme/default_template.html" %} 
+
+{%load staticfiles %}
+
+{% block css %}
+{% endblock %}
+
+{% block contents %}
+<!-- Intro Section -->
+<section class="full-screen-intro">
+	<!-- Bg Image -->
+	<div class="media-wapper bg-img8 cont-h-100per" style="background-image: url({% static 'img/gateway_02.86.jpg' %}");"></div>
+	<!-- End Bg Image -->
+	
+	<!-- Content -->
+	<div class="full-cap-wraper overlay-dark light-color">
+		<div class="content-caption light-color parallax parallax-opacity">
+			<div class="container">
+				<h5>For your better intelligent life with IoT technology</h5>
+				<h2 class="h2">BitSpark Service Gateway</h2>
+				<div class="row">
+				    <p class="lead col-md-6 col-md-offset-3">Services with any Devices, Devices with any Services. <br> The service gateway ties up with any devices and any services <br>for better your IoT business.</p>
+				</div>
+				<br>
+				<div><span class="btn-space-10 xs-hidden"></span><a class="btn btn-md btn-white">Read More</a></div>
+			</div>
+		</div>
+	</div>
+	<!-- End Content -->
+	
+	<!-- Intro Scroll Down -->
+	<div class="intro-scroll-down">
+		<a class="scroll-down" href="#about">
+			<span class="mouse">
+				<span class="mouse-dot"></span>
+			</span>
+		</a>
+	</div>
+	<!-- End Intro Scroll Down -->
+    
+</section>
+<div class="clearfix"></div>
+<!-- End Intro Section -->
+
+<!-- Features Section -->
+<section id="features" class="ptb ptb-sm-80">
+	<div class="wow fadeInLeft container text-center">
+		<h3>Features</h3>
+		<div class="spacer-60"></div>
+		<div class="row">
+			<div class="col-md-4 col-sm-6 mb-45">
+				<div class="page-icon-top"><i class="fa fa-cubes fa-lg"></i></div>
+				<h5>Service Apps</h5>
+				<p>This service gateway manipulates all connectable IoT devices with service applications. We support various service apps and software components that can be created by combining with all IoT devices around you. Just select app you want, that's it.</p>
+			</div>
+			<div class="col-md-4 col-sm-6 mb-45">
+				<div class="page-icon-top"><i class="fa fa-rocket fa-lg"></i></div>
+				<h5>Stand-alone</h5>
+				<p>Service does not perform on Cloud-based Platform(Optional, but not ready yet). It works stand-alone on your local area network. It means you do not have to pay for network service. You only need to buy a license once for a service application.</p>
+			</div>
+			<div class="col-md-4 col-sm-6 mb-45">
+				<div class="page-icon-top"><i class="fa fa-git fa-lg"></i></div>
+				<h5>Open Source</h5>
+				<p>COSSB(Component-based Open & Simple Service Broker) and its framework support for building a service component and application. Developer can freely use, modify, redistribute our framework and components under the <a href="https://opensource.org/licenses/BSD-3-Clause" target="_blank">simplified BSD license(BSD 3-Clause)</a>.</p>
+			</div>
+			<div class="col-md-4 col-sm-6 mb-45">
+				<div class="page-icon-top"><i class="fa fa-archive fa-lg"></i></div>
+				<h5>Solutions</h5>
+				<p>Some specific IoT solution you desired may require various functionalities. We will provide examples and suggest some packages by experimental service scenario to build your IoT business.</p>
+			</div>
+			<div class="col-md-4 col-sm-6 mb-45">
+				<div class="page-icon-top"><i class="fa fa-puzzle-piece fa-lg"></i></div>
+				<h5>Compatible</h5>
+				<p>Software framework and all components are also can be performed on the Open Hardware Platform, which supports Linux OS, such as RPi, Odroid, Edison, etc.</p>
+			</div>
+			<div class="col-md-4 col-sm-6 mb-45">
+				<div class="page-icon-top"><i class="fa fa-cog fa-lg"></i></div>
+				<h5>Service Oriented</h5>
+				<p>We aim to build an IoT service system and its framework that can round up the individual or independent single services for more intelligent IoT service.</p>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End Service Section -->
+
+
+<!-- Counter Section -->
+<section id="counter" class="dark-bg ptb-60">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-4 mb-sm-30">
+            	<i class="fa fa-cube fa-3x"></i><br/>
+                <h1 class="counter" data-count="0">0</h1>
+                <h6>Components</h6>
+            </div>
+            <div class="col-md-4 mb-sm-30">
+            	<i class="fa fa-cubes fa-3x"></i><br/>
+                <h1 class="counter" data-count="0">0</h1>
+                <h6>Apps</h6>
+            </div>
+            <div class="col-md-4 mb-sm-30">
+            	<i class="fa fa-archive fa-3x"></i><br/>
+                <h1 class="counter" data-count="0">0</h1>
+                <h6>Solutions</h6>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Counter Section -->
+
+<!-- Action Box Section -->
+<section id="action-box" class="dark-bg ptb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-8">
+                <h4 class="">How to build a service application?</h4>
+                <p class="mb-0">If you want to build your own service application with our framework, see the tutorial.</p>
+            </div>
+            <div class="col-md-4 col-sm-4">
+                <a class="btn btn-md btn-white float-right float-none-xs">See Tutorial</a>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Action Box Section -->
+
+
+<!-- Testimonials -->
+<section id="testimonial" class="overlay-dark80 dark-bg ptb ptb-sm-60">
+    <div class="container">
+        <div class="owl-carousel testimonial-carousel nf-carousel-theme white">
+            <div class="item">
+                <div class="testimonial text-center dark-color">
+                    <div class="container-icon"><i class="fa fa-quote-right"></i></div>
+                    <p class="lead">" We hope to support your IoT business with our technology that can generate new service by combining IoT devices and other online services. "</p>
+                    <h6 class="quote-author">BH. Hwang <span style="font-weight: 400;">( CEO Nsynapse Inc. )</span></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Testimonials -->
+
+
+
+
+        <!-- END CONTENT ---------------------------------------------------------------------------->
+{% endblock %}
+
+
+{% block javascript %}
+
+{% endblock %}
