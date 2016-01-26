@@ -9,10 +9,11 @@ def g_context(request):
     This context can be used only for server
     """
     __context = {
-                 "G_TITLE":"Cat Robot Server",
-                 "G_VERSION":"",
+                 "G_TITLE":"Cat Robot Monitoring System",
+                 "G_VERSION":"0.1",
+                 "G_RELEASE_DATE":"",
                  "G_DESCRIPTION":"",
-                 "G_AUTHOR":"Byunghun Hwang <bhhwang@nsynapsecom>",
+                 "G_AUTHOR":"Byunghun Hwang",
                  "G_URL":"http://www.nsynapse.com",
                  "G_AUTHOR_EMAIL":"bhhwang@nsynapse.com",
                  }

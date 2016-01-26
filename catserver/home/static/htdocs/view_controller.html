@@ -1,0 +1,42 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title">Camera View</h3>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+				</div>
+			</div><!-- /.box-header -->
+			<div class="box-body">
+				<div class="row">
+					<div class="col-md-8">
+					    <p class="text-center">
+					      Image Updated : <i id="_vision_update">-</i> 
+					    </p>
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+				
+			</div><!-- ./box-body -->
+			<div class="box-footer">
+			</div><!-- /.box-footer -->
+		</div><!-- /.box -->
+	</div><!-- /.col -->
+</div><!-- /.row -->
+	
+<script type="text/javascript">
+$(document).ready(function() {
+	function control_update() {
+		$.ajax({
+			'url':'/api/control',
+			'type':'GET',
+			'success':function(jsondata){
+				console.log(jsondata);
+				$('#_vision_update').text(jsondata.date);
+			}
+		});
+	}
+	
+	vision_update();
+});
+</script>

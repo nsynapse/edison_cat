@@ -9,10 +9,9 @@ router = routers.DefaultRouter()
 #router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
-    #url(r'^u/(?P<cmd>[\.\w-]+)$',login_required(control_user),{}, name="control_user" ),
-    
-    #url(r'^building$', views.building_status, name='building_status'),
-                    
+    url(r'^', include(router.urls)),
+    url(r'^system/$', views.system_update, name='system_update'),
+    url(r'^vision/$', views.vision_update, name='vision_update'),
 ]
 
 #urlpatterns += staticfiles_urlpatterns()

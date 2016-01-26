@@ -20,4 +20,5 @@ urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('home.urls')),
     url(r'^api/', include('restapi.urls')),
+    url(r'^control/', include('control.urls')),
 ]

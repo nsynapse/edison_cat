@@ -1,5 +1,10 @@
 eclipse.preferences.version=1
+encoding//catserver/control/control_robot.py=utf-8
+encoding//catserver/control/control_vision.py=utf-8
+encoding//catserver/control/urls.py=utf-8
 encoding//catserver/home/contexts.py=utf-8
 encoding//catserver/home/urls.py=utf-8
 encoding//catserver/home/views.py=utf-8
 encoding//catserver/restapi/urls.py=utf-8
+encoding//catserver/restapi/util.py=utf-8
+encoding//catserver/restapi/views.py=utf-8

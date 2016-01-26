@@ -1,0 +1,96 @@
+<!-- Info boxes -->
+<div class="row">
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<div class="info-box">
+			<span class="info-box-icon bg-aqua"><i class="fa fa-area-chart"></i></span>
+			<div class="info-box-content">
+				<span class="info-box-text">CPU(%)</span>
+				<span class="info-box-number" id="_cpu">-</span>
+			</div><!-- /.info-box-content -->
+		</div><!-- /.info-box -->
+	</div><!-- /.col -->
+	
+	
+<div class="col-md-3 col-sm-6 col-xs-12">
+	<div class="info-box">
+		<span class="info-box-icon bg-red"><i class="fa fa-tasks"></i></span>
+		<div class="info-box-content">
+			<span class="info-box-text">Memory used(%)</span>
+			<span class="info-box-number" id="_memory">-</span>
+		</div><!-- /.info-box-content -->
+	</div><!-- /.info-box -->
+</div><!-- /.col -->
+
+<div class="col-md-3 col-sm-6 col-xs-12">
+	<div class="info-box">
+		<span class="info-box-icon bg-green"><i class="fa fa-pie-chart"></i></span>
+		<div class="info-box-content">
+			<span class="info-box-text">Disk used(%)</span>
+			<span class="info-box-number" id="_disk">-</span>
+		</div><!-- /.info-box-content -->
+	</div><!-- /.info-box -->
+</div><!-- /.col -->
+
+<!-- fix for small devices only -->
+<div class="clearfix visible-sm-block">
+
+</div>
+</div><!-- /.row --> 
+
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title">System Information</h3>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+				</div>
+			</div><!-- /.box-header -->
+			<div class="box-body">
+				<div class="row">
+					<div class="col-md-8">
+					    <p class="text-center">
+					      
+					    </p>
+					</div><!-- /.col -->
+				</div><!-- /.row -->
+				
+			</div><!-- ./box-body -->
+			<div class="box-footer no-padding">
+				<ul class="nav nav-pills nav-stacked">
+					<li><a href="#">Hostname<span class="pull-right text-red" id="_hostname">-</span></a></li>
+					<li><a href="#">Machine<span class="pull-right text-red" id="_os_machine">-</span></a></li>
+					<li><a href="#">OS<span class="pull-right text-red" id="_os">-</span></a></li>
+					<li><a href="#">OS Version<span class="pull-right text-red" id="_os_version">-</span></a></li>
+					<li><a href="#">System IP Address<span class="pull-right text-red" id="_ipaddress">-</span></a></li>
+				</ul>
+			</div><!-- /.box-footer -->
+		</div><!-- /.box -->
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	function system_status_update() {
+		$.ajax({
+			'url':'/api/system',
+			'type':'GET',
+			'success':function(jsondata){
+				console.log(jsondata);
+				$('#_cpu').text(jsondata.platform_cpu_percent);
+				$('#_memory').text(jsondata.platform_memory_percent);
+				$('#_disk').text(jsondata.platform_disk_percent);
+				$('#_date').text(jsondata.date);
+				$('#_ipaddress').text(jsondata.wlan0);
+				$('#_os').text(jsondata.os);
+				$('#_os_version').text(jsondata.os_version);
+				$('#_os_machine').text(jsondata.os_machine);
+				$('#_hostname').text(jsondata.host_name);
+			}
+		});
+	}
+	
+	system_status_update();
+});
+</script>
