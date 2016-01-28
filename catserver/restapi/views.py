@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import viewsets, generics, status
 from util import Host
+from control.control_vision import Control_Vision
 
 
 """
@@ -38,16 +39,22 @@ def system_update(request):
 API for vision
 """
 @api_view(['GET'])
-def vision_update(request):
+def vision_command(request, cmd):
     
-    _response = {"date":"-"}
+    _response = {"date":"-", "filepath":""}
     
     if request.method == 'GET':
         try:
-            _time = datetime.now()
-            _response["date"] = _time.strftime("%Y-%m-%d %H:%M:%S")
+            if cmd == "capture":
+                vision = Control_Vision(request)
+                
+                _time = datetime.now()
+                _response["date"] = _time.strftime("%Y-%m-%d %H:%M:%S")
+                _response["filepath"] = vision.capture() 
             
-            return Response(_response, status.HTTP_200_OK)
+                return Response(_response, status.HTTP_200_OK)
+            else:
+                return Response(_response, status.HTTP_200_OK)
 
         except Exception, e:
             print "Exception(cordset) : ",e

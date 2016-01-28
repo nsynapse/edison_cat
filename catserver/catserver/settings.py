@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     
     'restapi',
     'home',
+    'control',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,6 +58,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'catserver.urls'
 STATIC_ROOT = os.path.join(BASE_DIR, 'home','static')
+STATIC_DATA_ROOT = os.path.join(BASE_DIR, 'home','static', 'data')
 
 TEMPLATES = [
     {
