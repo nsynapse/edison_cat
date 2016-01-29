@@ -36,10 +36,10 @@ def system_update(request):
     return Response(_response, status.HTTP_404_NOT_FOUND)
 
 """
-API for vision
+API for camera
 """
 @api_view(['GET'])
-def vision_command(request, cmd):
+def camera_command(request, cmd):
     
     _response = {"date":"-", "filepath":""}
     
@@ -62,11 +62,12 @@ def vision_command(request, cmd):
         return Response(_response, status.HTTP_400_BAD_REQUEST)
     return Response(_response, status.HTTP_404_NOT_FOUND)
 
+
 """
 API for vision control
 """
 @api_view(['GET'])
-def vision_control(request):
+def vision_command(request, cmd):
     
     _response = {"date":"-"}
     

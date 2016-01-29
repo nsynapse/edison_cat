@@ -5,6 +5,7 @@ from control import models
 from cv2 import *
 from catserver import settings
 from datetime import datetime
+from models import DBImageFile
 
 class Control_Vision(object):
     def __init__(self, request):
@@ -23,8 +24,13 @@ class Control_Vision(object):
             fail_filepath = "no_image.jpg"
             ret = imwrite(settings.STATIC_DATA_ROOT+"/"+success_filepath, image)
             if ret is True:
+                db = DBImageFile()
+                db.filepath = success_filepath
+                db.save()
                 return success_filepath
             else:
                 return fail_filepath
         except Exception, e:
             print "Exception : ", e
+            
+            

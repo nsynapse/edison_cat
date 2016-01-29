@@ -3,6 +3,8 @@
 {%load staticfiles %}
 
 {% block css %}
+<link href="{% static 'css/vendor/ionslider/ion.rangeSlider.css' %}" rel="stylesheet">
+<link href="{% static 'css/vendor/ionslider/ion.rangeSlider.skinNice.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block contents_header %}
@@ -11,6 +13,7 @@
 
 {% block contents %}
 
+{% include "view_gestureplayer.html" %}
 {% include "view_controller.html" %}
 
 {% endblock %}
@@ -19,4 +22,6 @@
 {% endblock %}
 
 {% block javascript %}
+<script src="{% static 'js/vendor/ionslider/ion.rangeSlider.js' %}"></script>
+
 {% endblock %}

@@ -16,8 +16,8 @@ def index(request):
 def dashboard(request):
     return render_to_response("dashboard.html", context_instance=RequestContext(request))
 
-def monitoring(request):
-    return render_to_response("monitoring.html", context_instance=RequestContext(request))
+def vision(request):
+    return render_to_response("vision.html", context_instance=RequestContext(request))
 
 def control(request):
     return render_to_response("control.html", context_instance=RequestContext(request))

@@ -5,8 +5,8 @@ from django.db import models
 """
 DB Model(abstract) for filepath storing
 """
-class File(models.Model):
-    filepath = models.CharField(max_length=100, blank=False, default="")
+class DBFile(models.Model):
+    filepath = models.CharField(max_length=200, blank=False, default="")
     
     def __unicode__(self):
         return self.filepath
@@ -14,10 +14,21 @@ class File(models.Model):
         abstract = True
         
         
-class ImageFile(File):
-    date = models.DateTimeField(null=True, blank=True)
+class DBImageFile(DBFile):
+    date = models.DateTimeField(auto_now_add=True)
     
     def __unicode__(self):
         return self.filepath
     class Meta:
-        ordering = ["-filepath"]
+        ordering = ["-date"]
+        
+        
+class DBGestureFile(DBFile):
+    date = models.DateTimeField(auto_now_add=True)
+    
+    def __unicode__(self):
+        return self.filepath
+    class Meta:
+        ordering = ["-date"]
+        
+        

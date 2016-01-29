@@ -10,7 +10,7 @@ urlpatterns = [
                        url(r'^$', views.dashboard, name="index"),
                        
                        #for sidemenu
-                       url(r'^monitoring/$', views.monitoring, name="monitoring"),
+                       url(r'^vision/$', views.vision, name="vision"),
                        url(r'^setting/log/$', views.setting_log, name="setting_log"),
                        url(r'^setting/system$', views.setting_system, name="setting_system"),
                        url(r'^control/$', views.control, name="control"),

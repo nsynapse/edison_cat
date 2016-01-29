@@ -10,27 +10,15 @@
 					<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
 				</div>
 			</div><!-- /.box-header -->
-			<div class="box-body">
+			<div class="box-body no-padding">
 				<div class="row">
-					<img src="{% static 'data/no_image.jpg' %}" id="_vision_src" width="100%">
+					<img src="{% static 'data/no_image.jpg' %}" id="_camera_src" width="100%">
 				</div><!-- /.row -->
 				
 			</div><!-- ./box-body -->
 			<div class="box-footer">
-				<div class="row">
-					<div class="col-md-12">
-					    <p class="text-center">
-					      Image Updated : <i id="_vision_update">-</i> 
-					    </p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-3">
-						<div class="description-block border-right">
-							<span class="description-text"><a href="javascript:void(0);" class="btn btn-md btn-success" onclick="vision_capture();"><i class="fa fa-camera"></i> Capture</a></span>
-						</div>
-					</div>
-              </div>
+				<a href="javascript:void(0);" class="btn btn-sm btn-danger btn-flat pull-left" onclick="camera_capture();"><i class="fa fa-camera"></i> Capture</a>
+				<span class="pull-right">Updated : <i id="_camera_update">-</i></span>
               <!-- /.row -->
 			</div><!-- /.box-footer -->
 		</div><!-- /.box -->
@@ -38,22 +26,19 @@
 </div><!-- /.row -->
 	
 <script type="text/javascript">
-function vision_capture() {
+function camera_capture() {
 	$.ajax({
-		'url':'/api/vision/capture',
+		'url':'/api/camera/capture',
 		'type':'GET',
 		'success':function(jsondata){
 			console.log(jsondata);
-			$('#_vision_update').text(jsondata.date);
-			//$('#_vision_src').text(jsondata.filepath)
-			path = "{% static 'data/' %}" + jsondata.filepath;
-			$("#_vision_src").attr("src", path);
-			//$("#_vision_src").attr("src", jsondata.filepath+"?time="+new Date().getTime());
+			$('#_camera_update').text(jsondata.date);
+			$("#_camera_src").attr("src", "{% static 'data/' %}" + jsondata.filepath);
 		}
 	});
 }
 
 $(document).ready(function() {
-	//vision_capture();
+
 });
 </script>
