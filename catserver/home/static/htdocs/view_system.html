@@ -72,7 +72,7 @@
 $(document).ready(function() {
 	function system_status_update() {
 		$.ajax({
-			'url':'/api/system',
+			'url':'/api/system/',
 			'type':'GET',
 			'success':function(jsondata){
 				console.log(jsondata);

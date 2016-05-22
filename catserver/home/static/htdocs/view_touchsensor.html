@@ -1,0 +1,103 @@
+
+{%load staticfiles %}
+<div class="row">
+	<div class="col-md-12">
+<div class="box">
+	<div class="box-header">
+		<h3 class="box-title">Touch Sensors</h3>
+	</div>
+	<!-- /.box-header -->
+	<div class="box-body no-padding">
+		<table class="table table-striped">
+		<tr>
+			<th style="width: 10px">#</th>
+			<th>Name</th>
+			<th style="width: 50px"></th>
+		</tr>
+	<tr>
+	  <td>1.</td>
+	  <td>Head</td>
+	  <td><span class="badge bg-black">Touch</span></td>
+	</tr>
+	<tr>
+	  <td>2.</td>
+	  <td>Left Ear</td>
+	  <td><span class="badge bg-black">Touch</span></td>
+	</tr>
+	<tr>
+	  <td>3.</td>
+	  <td>Right Ear</td>
+	  <td><span class="badge bg-black">Touch</span></td>
+	</tr>
+		</table>
+	</div>
+	<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+	</div><!-- /.col -->
+</div><!-- /.row -->
+	
+<script type="text/javascript" src="{% static 'js/vendor/dygraph/dygraph-combined.js' %}"></script>	
+<script type="text/javascript">
+
+//web socket server connection
+$(document).ready(function(){
+	
+	var data = [];
+	var first = false;
+	var g;
+	
+	
+	var socket_uri = "ws://192.168.0.6:9002"
+	var sock = new WebSocket(socket_uri)
+	
+	sock.onopen = function(){
+		console.log("connection to " + socket_uri);
+	}
+	sock.onclose = function(e){
+		console.log("connection closed(" + e.code + ")")
+	}
+	sock.onmessage = function(e){
+		var jsondata = jQuery.parseJSON(e.data);
+		
+		if(jsondata.status!=200)
+			return false;
+		
+		console.log(jsondata);
+		
+		/*if(jsondata.node_uid!="{{node.uid}}")
+			return false;
+		
+		if(first==false)
+		{
+			labels = ["Time", "Ref-Min", "Ref-Max"];
+			for(var i=0;i<jsondata.data.length;i++)
+				labels.push(jsondata.data[i].name);
+			$.setup(labels);
+			first = true;
+		}
+		
+		var x = new Date();
+		var values = [];
+		values.push(x);
+		values.push({{node.reference_min}});
+		values.push({{node.reference_max}});
+		for(var i=0;i<jsondata.data.length;i++)
+		{
+			values.push(jsondata.data[i].value);
+			$('.table #label'+(i+1).toString()).text(jsondata.data[i].name);
+			$('.table #value'+(i+1).toString()).text(jsondata.data[i].value);
+		}	
+		
+		data.push(values);
+		
+		if(data.length>150)
+			data.shift();
+		
+		g.updateOptions({ 'file': data });*/
+
+		
+	}
+});
+
+</script>

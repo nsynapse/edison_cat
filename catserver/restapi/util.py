@@ -16,10 +16,15 @@ class Host(object):
         pass
     
     def getIPAddress(self, adapter):
-        if platform.system() == 'Windows':
-            return socket.gethostbyname(socket.gethostname())
-        else:
-            return commands.getoutput("ifconfig %s"%adapter).split("\n")[1].split()[1][5:]
+        try:
+            if platform.system() == 'Windows':
+                return socket.gethostbyname(socket.gethostname())
+            else:
+                return commands.getoutput("ifconfig %s"%adapter).split("\n")[1].split()[1][5:]
+        except Exception, e:
+            print "Exception : ",e
+            return "unknown"
+            
 
     
     def getSystemInfo(self):

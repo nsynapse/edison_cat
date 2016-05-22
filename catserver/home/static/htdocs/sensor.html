@@ -1,0 +1,26 @@
+{% extends "theme/default_template.html" %} 
+
+{%load staticfiles %}
+
+{% block css %}
+<link href="{% static 'css/vendor/ionslider/ion.rangeSlider.css' %}" rel="stylesheet">
+<link href="{% static 'css/vendor/ionslider/ion.rangeSlider.skinNice.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block contents_header %}
+<h1>Sensors</h1>
+{% endblock %}
+
+{% block contents %}
+
+{% include "view_touchsensor.html" %}
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/vendor/ionslider/ion.rangeSlider.js' %}"></script>
+
+{% endblock %}

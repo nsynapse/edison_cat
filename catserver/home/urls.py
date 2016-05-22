@@ -14,6 +14,7 @@ urlpatterns = [
                        url(r'^setting/log/$', views.setting_log, name="setting_log"),
                        url(r'^setting/system$', views.setting_system, name="setting_system"),
                        url(r'^control/$', views.control, name="control"),
+                       url(r'^sensor/$', views.sensor, name="sensor"),
                        url(r'^dashboard/$', views.dashboard, name="dashboard"),
                        
                        
