@@ -23,7 +23,7 @@ class Host(object):
                 return commands.getoutput("ifconfig %s"%adapter).split("\n")[1].split()[1][5:]
         except Exception, e:
             print "Exception : ",e
-            return "unknown"
+            return "0.0.0.0"
             
 
     

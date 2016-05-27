@@ -24,8 +24,7 @@ def system_update(request):
             _host = Host()
             _info = _host.getSystemInfo()
             _info["wlan0"] = _host.getIPAddress("wlan0")
-            #_info.update({"ipaddress":_host.getIPAddress("wlan0")})
-            print _info
+            _info["eth0"] = _host.getIPAddress("eth0")
             _response["date"] = _time.strftime("%Y-%m-%d %H:%M:%S")
             _response.update(_info)
             

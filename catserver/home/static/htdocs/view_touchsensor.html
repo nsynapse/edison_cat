@@ -1,38 +1,74 @@
 
 {%load staticfiles %}
 <div class="row">
-	<div class="col-md-12">
-<div class="box">
-	<div class="box-header">
-		<h3 class="box-title">Touch Sensors</h3>
+	<div class="col-md-6">
+	  <div class="box box-default">
+	    <div class="box-header with-border">
+	      <i class="fa fa-info-circle"></i>
+	
+	      <h3 class="box-title">Connection</h3>
+	    </div>
+	    <!-- /.box-header -->
+	    <div id="connection" class="box-body">
+	      <div class="alert alert-danger alert-dismissible">
+	        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+	        This page cannot connect to the server.
+	      </div>
+	    </div>
+	    <!-- /.box-body -->
+	  </div>
+	  <!-- /.box -->
 	</div>
-	<!-- /.box-header -->
-	<div class="box-body no-padding">
-		<table class="table table-striped">
-		<tr>
-			<th style="width: 10px">#</th>
-			<th>Name</th>
-			<th style="width: 50px"></th>
-		</tr>
-	<tr>
-	  <td>1.</td>
-	  <td>Head</td>
-	  <td><span class="badge bg-black">Touch</span></td>
-	</tr>
-	<tr>
-	  <td>2.</td>
-	  <td>Left Ear</td>
-	  <td><span class="badge bg-black">Touch</span></td>
-	</tr>
-	<tr>
-	  <td>3.</td>
-	  <td>Right Ear</td>
-	  <td><span class="badge bg-black">Touch</span></td>
-	</tr>
-		</table>
-	</div>
-	<!-- /.box-body -->
-	</div>
+
+
+
+	<div class="col-md-6">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Touch Sensors</h3>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body no-padding">
+				<table class="table table-striped">
+				<tr>
+					<th style="width: 10px">ID</th>
+					<th>Name</th>
+					<th style="width: 50px"></th>
+				</tr>
+				<tr>
+				  <td>1</td>
+				  <td>Front Head</td>
+				  <td id="touch_1"><span class="badge bg-black">Touch</span></td>
+				</tr>
+				<tr>
+				  <td>2</td>
+				  <td>Rear Head</td>
+				  <td id="touch_2"><span class="badge bg-black">Touch</span></td>
+				</tr>
+				<tr>
+				  <td>3</td>
+				  <td>Nose</td>
+				  <td id="touch_3"><span class="badge bg-black">Touch</span></td>
+				</tr>
+				<tr>
+				  <td>4</td>
+				  <td>Left Ear</td>
+				  <td id="touch_4"><span class="badge bg-black">Touch</span></td>
+				</tr>
+				<tr>
+				  <td>5</td>
+				  <td>Right Ear</td>
+				  <td id="touch_5"><span class="badge bg-black">Touch</span></td>
+				</tr>
+				</table>
+			</div>
+			<!-- /.box-body -->
+		</div>
 	<!-- /.box -->
 	</div><!-- /.col -->
 </div><!-- /.row -->
@@ -48,11 +84,13 @@ $(document).ready(function(){
 	var g;
 	
 	
-	var socket_uri = "ws://192.168.0.6:9002"
+	var socket_uri = "ws://192.168.0.6:9002/sensor/"
 	var sock = new WebSocket(socket_uri)
 	
 	sock.onopen = function(){
 		console.log("connection to " + socket_uri);
+		$('#connection').html("<div class='alert alert-success alert-dismissible'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><h4><i class='icon fa fa-check'></i> Alert!</h4>Successfully connected to the "+socket_uri+"</div>");
+		
 	}
 	sock.onclose = function(e){
 		console.log("connection closed(" + e.code + ")")
@@ -60,10 +98,17 @@ $(document).ready(function(){
 	sock.onmessage = function(e){
 		var jsondata = jQuery.parseJSON(e.data);
 		
-		if(jsondata.status!=200)
-			return false;
+		switch(jsondata.data.status){
+		case 1:	//update
+			if(jsondata.data.value==255) 
+				$('#touch_'+jsondata.data.id.toString()).html("<span class='badge bg-red'>Touch</span>"); 
+			else
+				$('#touch_'+jsondata.data.id.toString()).html("<span class='badge bg-black'>Touch</span>");
+		break;
+		}
 		
-		console.log(jsondata);
+		
+		
 		
 		/*if(jsondata.node_uid!="{{node.uid}}")
 			return false;
