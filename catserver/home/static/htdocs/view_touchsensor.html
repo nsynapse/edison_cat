@@ -10,11 +10,7 @@
 	    </div>
 	    <!-- /.box-header -->
 	    <div id="connection" class="box-body">
-	      <div class="alert alert-danger alert-dismissible">
-	        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-	        This page cannot connect to the server.
-	      </div>
+	      
 	    </div>
 	    <!-- /.box-body -->
 	  </div>
@@ -78,11 +74,7 @@
 
 //web socket server connection
 $(document).ready(function(){
-	
-	var data = [];
-	var first = false;
-	var g;
-	
+
 	
 	var socket_uri = "ws://192.168.0.6:9002/sensor/"
 	var sock = new WebSocket(socket_uri)
@@ -94,6 +86,7 @@ $(document).ready(function(){
 	}
 	sock.onclose = function(e){
 		console.log("connection closed(" + e.code + ")")
+		$('#connection').html("<div class='alert alert-danger alert-dismissible'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><h4><i class='icon fa fa-ban'></i> Alert!</h4>"+socket_uri+" connection is failed.</div>");
 	}
 	sock.onmessage = function(e){
 		var jsondata = jQuery.parseJSON(e.data);
@@ -106,41 +99,6 @@ $(document).ready(function(){
 				$('#touch_'+jsondata.data.id.toString()).html("<span class='badge bg-black'>Touch</span>");
 		break;
 		}
-		
-		
-		
-		
-		/*if(jsondata.node_uid!="{{node.uid}}")
-			return false;
-		
-		if(first==false)
-		{
-			labels = ["Time", "Ref-Min", "Ref-Max"];
-			for(var i=0;i<jsondata.data.length;i++)
-				labels.push(jsondata.data[i].name);
-			$.setup(labels);
-			first = true;
-		}
-		
-		var x = new Date();
-		var values = [];
-		values.push(x);
-		values.push({{node.reference_min}});
-		values.push({{node.reference_max}});
-		for(var i=0;i<jsondata.data.length;i++)
-		{
-			values.push(jsondata.data[i].value);
-			$('.table #label'+(i+1).toString()).text(jsondata.data[i].name);
-			$('.table #value'+(i+1).toString()).text(jsondata.data[i].value);
-		}	
-		
-		data.push(values);
-		
-		if(data.length>150)
-			data.shift();
-		
-		g.updateOptions({ 'file': data });*/
-
 		
 	}
 });
