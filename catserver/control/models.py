@@ -32,3 +32,10 @@ class DBGestureFile(DBFile):
         ordering = ["-date"]
         
         
+class DBSystemInfo(models.Model):
+    net_address = models.CharField(max_length=20, blank=False)
+    
+    def __unicode__(self):
+        return self.net_address
+    
+    

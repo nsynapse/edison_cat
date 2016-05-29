@@ -6,3 +6,7 @@ class Control_System(object):
     
     def __del__(self):
         pass
+    
+    def update(self, info):
+        if type(info)==dict:
+            print "type ok"
