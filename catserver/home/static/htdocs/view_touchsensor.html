@@ -64,7 +64,7 @@
 $(document).ready(function(){
 
 	
-	var socket_uri = "ws://192.168.0.6:9002/sensor/"
+	var socket_uri = "ws://192.168.0.6:9002/sensor"
 	var sock = new WebSocket(socket_uri)
 	
 	sock.onopen = function(){
@@ -80,14 +80,10 @@ $(document).ready(function(){
 	sock.onmessage = function(e){
 		var jsondata = jQuery.parseJSON(e.data);
 		
-		switch(jsondata.data.status){
-		case 1:	//update
-			if(jsondata.data.value==255) 
-				$('#touch_'+jsondata.data.id.toString()).html("<span class='badge bg-red'>Touch</span>"); 
-			else
-				$('#touch_'+jsondata.data.id.toString()).html("<span class='badge bg-black'>Touch</span>");
-		break;
-		}
+		if(jsondata.value>0) 
+			$('#touch_'+jsondata.id.toString()).html("<span class='badge bg-red'>Touch</span>"); 
+		else
+			$('#touch_'+jsondata.id.toString()).html("<span class='badge bg-black'>Touch</span>");
 		
 	}
 });
