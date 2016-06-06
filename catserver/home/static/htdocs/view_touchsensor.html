@@ -6,7 +6,6 @@
 </div>
     
 <div class="row">
-
 	<div class="col-md-12">
 		<div class="box">
 			<div class="box-header">
@@ -56,6 +55,44 @@
 	<!-- /.box -->
 	</div><!-- /.col -->
 </div><!-- /.row -->
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Touch Control</h3>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body no-padding">
+				<table class="table table-striped">
+				<tr>
+					<th style="width: 10px">ID</th>
+					<th>Name</th>
+					<th style="width: 50px"></th>
+				</tr>
+				<tr>
+				  <td>1</td>
+				  <td>Sensor Activation</td>
+				  <td class="text-center">
+						<div class="sparkbar" data-color="#00a65a" data-height="20">
+							<div class="btn-group btn-group-xs" role="group" aria-label="...">
+							<button id="activate" type="button" class="btn btn-success"><i class="fa fa-power-off"></i> Active</button>
+						</div>
+						</div>
+					</td>
+				</tr>
+				</table>
+			</div>
+			<!-- /.box-body -->
+		</div>
+	<!-- /.box -->
+	</div><!-- /.col -->
+</div><!-- /.row -->
+
 	
 <!--  <script type="text/javascript" src="{% static 'js/vendor/dygraph/dygraph-combined.js' %}"></script>-->
 <script type="text/javascript">
@@ -66,6 +103,13 @@ $(document).ready(function(){
 	
 	var socket_uri = "ws://192.168.0.6:9002/sensor"
 	var sock = new WebSocket(socket_uri)
+	
+	$("#activate").click(function(){
+		var data = {}
+		data['id'] = 1;
+		data['value'] = true;
+		sock.send(JSON.stringify(data));
+    });
 	
 	sock.onopen = function(){
 		console.log("connection to " + socket_uri);
