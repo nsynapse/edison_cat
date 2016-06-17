@@ -101,13 +101,15 @@
 $(document).ready(function(){
 
 	
-	var socket_uri = "ws://192.168.0.6:9002/sensor"
+	var socket_uri = "ws://127.0.0.1:9002/sensor"
 	var sock = new WebSocket(socket_uri)
 	
 	$("#activate").click(function(){
 		var data = {}
 		data['id'] = 1;
-		data['value'] = true;
+		data['command'] = 0x10;
+		data['value'] = 100;
+		data['list'] = [1,2,3,4];
 		sock.send(JSON.stringify(data));
     });
 	
