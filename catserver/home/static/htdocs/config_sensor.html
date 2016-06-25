@@ -1,0 +1,41 @@
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">Sensor Device Configuration</h3>
+
+
+    <div class="box-tools">
+    	<a href="javascript:void(0);" class="btn btn-xs btn-success btn-flat pull-right" onclick="#" data-toggle="modal" data-target="#newsensormodal"><i class="fa fa-plus"></i> New Device</a>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body table-responsive no-padding">
+    <table class="table">
+      <tr>
+        <th style="width:15px">#</th>
+        <th>Name</th>
+        <th style="width:20%">Range</th>
+        <th style="width:25%">UID</th>
+        <th style="width:20%">Manage</th>
+      </tr>
+      {% for sensor in sensors %}
+      <tr>
+      	<td>{{forloop.counter}}</td>
+      	<td>{{sensor.name}}</td>
+      	<td>[{{sensor.min}}, {{sensor.max}}]</td>
+      	<td>{{sensor.uid}}</td>
+      	<td>
+      		<form class="btn-group pull-right" method="post" action="{% url 'control_sensor' cmd='delete' %}" onsubmit="return confirm('Delete?');">{% csrf_token %}
+      			<input id="id_device_uid" name="device_uid" type="hidden" value="{{sensor.uid}}">
+      			<button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Del</button>
+      		</form>
+      	</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer">
+  </div>
+</div>
+
+{% include 'popup/new_sensor.html' %}

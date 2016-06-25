@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets, generics, status
 from util import Host
 from control.control_vision import Control_Vision
+from control.control_sensor import Control_Sensor
 
 
 """

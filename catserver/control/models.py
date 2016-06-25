@@ -18,7 +18,7 @@ class DBImageFile(DBFile):
     date = models.DateTimeField(auto_now_add=True)
     
     def __unicode__(self):
-        return self.filepath
+        return DBFile.__unicode__(self)
     class Meta:
         ordering = ["-date"]
         
@@ -27,7 +27,7 @@ class DBGestureFile(DBFile):
     date = models.DateTimeField(auto_now_add=True)
     
     def __unicode__(self):
-        return self.filepath
+        return DBFile.__unicode__(self)
     class Meta:
         ordering = ["-date"]
         
@@ -37,5 +37,24 @@ class DBSystemInfo(models.Model):
     
     def __unicode__(self):
         return self.net_address
+        
     
     
+class DBLogFile(DBFile):
+    def __unicode__(self):
+        return DBFile.__unicode__(self)
+        
+        
+"""
+Sensor device data
+"""
+class DBSensor(models.Model):
+    uid = models.CharField(max_length=64, blank=False, default="")
+    name = models.CharField(max_length=100, blank=False)
+    min = models.FloatField(blank=False, default=-1.0)
+    max = models.FloatField(blank=False, default=1.0)
+    
+    def __unicode__(self):
+        return self.name
+        
+        

@@ -7,7 +7,7 @@ from control import views
 from catserver import settings
 
 urlpatterns = [
-               #url(r'capture/^$', views.dashboard, name="index"),
+               url(r'^sensor/(?P<cmd>.*)$', views.control_sensor, name="control_sensor"),
                #url(r'^vision/(?P<cmd>[\.\w-]+)$', views.control_vision, name='control_vision'),
                #url(r'^robot/(?P<cmd>[\.\w-]+)$', views.control_robot, name='control_robot'),
                ]

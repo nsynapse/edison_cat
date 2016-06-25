@@ -20,7 +20,7 @@ urlpatterns = [
                        
                        
                        #for load static files
-                       url('^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root':settings.STATIC_ROOT}),
+                       #url('^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root':settings.STATIC_ROOT}),
                        
                        ]
 
