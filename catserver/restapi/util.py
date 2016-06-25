@@ -63,6 +63,7 @@ class Host(object):
         self.system_info['os_processor'] = platform.processor()
         
         self.system_info['host_name'] = socket.gethostname()
+        self.system_info['net_io'] = psutil.net_if_addrs()
         
         return self.system_info
 

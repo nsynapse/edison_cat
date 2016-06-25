@@ -111,6 +111,27 @@ $(document).ready(function(){
 		valueFontColor:"#000000",
 		label: "Deg"
 	});	
+  
+	var socket_uri = "ws://127.0.0.1:9002/sensor"
+	var sock = new WebSocket(socket_uri)
+	
+	sock.onopen = function(){
+		console.log("connection to " + socket_uri);
+		$('#connection').html("<div class='callout callout-success' style='margin-bottom: 0!important;'><h4><i class='fa fa-info'></i> Success:</h4> Successfully connected to the server "+socket_uri+".</div></div>");
+		
+	}
+	sock.onclose = function(e){
+		console.log("connection closed(" + e.code + ")")
+		$('#connection').html("<div class='callout callout-danger' style='margin-bottom: 0!important;'><h4><i class='fa fa-ban'></i> Fail:</h4>Alert!"+socket_uri+" connection is failed.</div></div>");
+	}
+	sock.onmessage = function(e){
+		var jsondata = jQuery.parseJSON(e.data);
+		
+		if(jsondata.value>0){
+			g1.refresh(jsondata.value);
+		}
+		
+	}
 
 });
 

@@ -40,9 +40,9 @@
 		<!-- LOGO -->
 		<a href="/" class="logo">
 			<!-- mini logo for sidebar mini 50x50 pixels -->
-			<span class="logo-mini">CAT</span>
+			<span class="logo-mini">{{G_TITLE_MINI}}</span>
 			<!-- logo for regular state and mobile devices -->
-			<span class="logo-lg"><b>CAT</b> Robot</span>
+			<span class="logo-lg"><b>{{G_TITLE_LOGO}}</b></span>
 		</a>
 		<!-- END LOGO -->
         
@@ -62,19 +62,8 @@
 			<section class="sidebar">
 				<ul class="sidebar-menu">
 					<li class="header">MENU</li>
-					<!-- Optionally, you can add icons to the links -->
-					<li class="active"><a href="{%url 'dashboard' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-					<li><a href="{%url 'vision' %}"><i class="fa fa-eye"></i> <span>Vision</span></a></li>
-					<li><a href="{%url 'control' %}"><i class="fa fa-gamepad"></i> <span>Control</span></a></li>
-					<li><a href="{%url 'sensor' %}"><i class="fa fa-bar-chart"></i> <span>Sensors</span></a></li>
-					<li class="treeview">
-					<a href="#"><i class="fa fa-link"></i> <span>Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
-					<ul class="treeview-menu">
-						<li><a href="{%url 'setting_system' %}">System</a></li>
-						<li><a href="{%url 'setting_log' %}">Log</a></li>
-					</ul>
-				</li>
-			</ul>  
+					{% include "theme/default_menu.html" %}
+				</ul>  
 		</section>
 		<!-- END SIDEBAR MENU -->
 	</aside>
@@ -104,7 +93,7 @@
 		<!-- To the right -->
 		<div class="pull-right hidden-xs">for Intel Edison</div>
 		<!-- Default to the left -->
-		<strong>Copyright &copy; 2016 <a href="#">Nsynapse Inc.</a></strong> All rights reserved.
+		<strong>Copyright &copy; 2016 <a href="#">{{G_COMPANY}}</a></strong> All rights reserved.
 	</footer>
 	<!-- END FOOTER -->
 	

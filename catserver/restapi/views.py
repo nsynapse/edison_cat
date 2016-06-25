@@ -31,7 +31,7 @@ def system_update(request):
             return Response(_response, status.HTTP_200_OK)
 
         except Exception, e:
-            print "Exception : ",e
+            print "Exception(system) : ",e
     else:
         return Response(_response, status.HTTP_400_BAD_REQUEST)
     return Response(_response, status.HTTP_404_NOT_FOUND)
@@ -58,7 +58,7 @@ def camera_command(request, cmd):
                 return Response(_response, status.HTTP_200_OK)
 
         except Exception, e:
-            print "Exception(cordset) : ",e
+            print "Exception(camera) : ",e
     else:
         return Response(_response, status.HTTP_400_BAD_REQUEST)
     return Response(_response, status.HTTP_404_NOT_FOUND)
@@ -80,9 +80,27 @@ def vision_command(request, cmd):
             return Response(_response, status.HTTP_200_OK)
 
         except Exception, e:
-            print "Exception(cordset) : ",e
+            print "Exception(vision) : ",e
     else:
         return Response(_response, status.HTTP_400_BAD_REQUEST)
     return Response(_response, status.HTTP_404_NOT_FOUND)
+
+
+"""
+API for network control
+"""
+@api_view(['GET'])
+def network_command(request, cmd):
+    _response = {}
+    if request.method == 'GET':
+        try:
+            return Response(_response, status.HTTP_200_OK)
+        except Exception, e:
+            print "Exception(network) : ", e
+    else:
+        return Response(_response, status.HTTP_400_BAD_REQUEST)
+    
+    return Response(_response, status.HTTP_404_NOT_FOUND)
+
 
 

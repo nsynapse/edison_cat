@@ -31,4 +31,7 @@ def setting_log(request):
 def setting_system(request):
     return render_to_response("setting_system.html", context_instance=RequestContext(request))
 
+def setting_sensor(request):
+    return render_to_response("setting_sensor.html", context_instance=RequestContext(request))
+
 #

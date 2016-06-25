@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^system/$', views.system_update, name='system_update'),
     url(r'^vision/(?P<cmd>.*)$', views.vision_command, name='vision_command'),
     url(r'^camera/(?P<cmd>.*)$', views.camera_command, name='camera_command'),
+    url(r'^network/(?P<cmd>.*)$', views.network_command, name='network_command'),
 ]
 
 #urlpatterns += staticfiles_urlpatterns()
