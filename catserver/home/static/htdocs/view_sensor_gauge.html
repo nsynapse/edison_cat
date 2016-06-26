@@ -56,7 +56,7 @@ $(document).ready(function(){
 		});
 	{% endfor %}
 	
-	var socket_uri = "ws://127.0.0.1:9002/sensor"
+	var socket_uri = "ws://{{system.0.net_address}}:{{system.0.websocket_port}}/sensor"
 	var sock = new WebSocket(socket_uri)
 	
 	sock.onopen = function(){
