@@ -1,0 +1,47 @@
+<div class="row">
+	<div class="col-md-6">
+		<div class="box">
+			<form enctype="multipart/form-data" action="{% url 'control_system' cmd='update' %}" method="post">{% csrf_token %}
+			<div class="box-header">
+				<h3 class="box-title">Network Configurations</h3>
+			</div>
+			<!-- /.box-header -->
+	
+			<div class="box-body">
+				<div class="row">
+					<div class="form-group">
+						<label for="websocket_port" class="col-sm-8 control-label">Websocket Port</label>
+						<div class="col-sm-4">
+							<input name="websocket_port" type="number" class="form-control" id="id_websocket_port" placeholder="Websocket Port" value="{{system.0.websocket_port}}">
+						</div>
+					</div>
+				</div>
+				<br>
+				
+				<!-- select -->
+				<div class="row">
+					<div class="form-group">
+						<label class="col-sm-6 control-label">Network Interface</label>
+						<div class="col-sm-6">
+							<select class="form-control" name="net_if">
+							{% for io, data in nets.items %}
+							{% if system.0.net_if == io %}
+								<option value="{{io}}" selected>{{io}} [{{data.0.address}}]</option>
+							{% else %}
+								<option value="{{io}}">{{io}} [{{data.0.address}}]</option>
+							{% endif %}
+							{% endfor %}
+							</select>
+						</div>
+					</div>
+				</div>
+		</div>
+		<!-- /.box-body -->
+		<div class="box-footer">
+			<button type="submit" class="btn btn-sm btn-success btn-flat pull-right" name="save">Save & Update</button>
+		</div>
+		</form>
+	</div>
+<!-- /.box -->
+</div>
+</div>

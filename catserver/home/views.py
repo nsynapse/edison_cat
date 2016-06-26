@@ -6,7 +6,8 @@ from django.contrib import auth
 from django.template.context_processors import csrf
 from django.http.response import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from control.models import DBSensor
+from control.models import DBSensor, DBSystemInfo
+import psutil
 
 # render index page
 def index(request):
@@ -25,13 +26,16 @@ def control(request):
 
 def sensor(request):
     all_sensors = DBSensor.objects.all()
-    return render_to_response("sensor.html", {'sensors':all_sensors}, context_instance=RequestContext(request))
+    system = DBSystemInfo.objects.all()
+    return render_to_response("sensor.html", {'sensors':all_sensors, 'system':system}, context_instance=RequestContext(request))
 
 def setting_log(request):
     return render_to_response("setting_log.html", context_instance=RequestContext(request))
 
 def setting_system(request):
-    return render_to_response("setting_system.html", context_instance=RequestContext(request))
+    nets = psutil.net_if_addrs()
+    system = DBSystemInfo.objects.all()
+    return render_to_response("setting_system.html",{'nets':nets, 'system':system}, context_instance=RequestContext(request))
 
 def setting_sensor(request):
     all_sensors = DBSensor.objects.all()

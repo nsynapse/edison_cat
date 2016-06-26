@@ -34,6 +34,8 @@ class DBGestureFile(DBFile):
         
 class DBSystemInfo(models.Model):
     net_address = models.CharField(max_length=20, blank=False)
+    net_if = models.CharField(max_length=20, blank=False)
+    websocket_port = models.IntegerField(blank=False, default=9002)
     
     def __unicode__(self):
         return self.net_address
