@@ -1,117 +1,61 @@
 
 {%load staticfiles %}
-
-<div class="row">
-	<div class="col-md-12">
-		<div class="box">
-			<div class="box-header">
-				<i class="fa fa-bar-chart-o"></i>
-				<h3 class="box-title">Sensor Monitoring</h3>
-				<div class="box-tools pull-right">
-					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-					<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+{% if sensors.count > 0 %}
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box-header">
+						<i class="fa fa-bar-chart-o"></i>
+						<h3 class="box-title">Sensor Monitoring</h3>
+						<div class="box-tools pull-right">
+							<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+							<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+						</div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body no-padding">
+					{% for sensor in sensors %}
+					<div class="row">
+		                <div class="col-xs-6 col-md-3 text-center">
+		                  <div id="{{sensor.uid}}" style="width:200px; height:150px;"></div>
+		                </div>
+		             </div>
+					{% endfor %}
+						
+					</div>
+					<!-- /.box-body -->
 				</div>
-			</div>
-			<!-- /.box-header -->
-			<div class="box-body no-padding">
-				<div class="row">
-                <div class="col-xs-6 col-md-3 text-center">
-                  <div id="gauge1" style="width:200px; height:150px"></div>
-                </div>
-                <div class="col-xs-6 col-md-3 text-center">
-                  <div id="gauge2" style="width:200px; height:150px"></div>
-                </div>
-                <div class="col-xs-6 col-md-3 text-center">
-                  <div id="gauge3" style="width:200px; height:150px"></div>
-                </div>
-                <div class="col-xs-6 col-md-3 text-center">
-                  <div id="gauge4" style="width:200px; height:150px"></div>
-                </div>
-             </div>
-			</div>
-			<!-- /.box-body -->
-		</div>
-	<!-- /.box -->
-	</div><!-- /.col -->
-</div><!-- /.row -->
+			<!-- /.box -->
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+{% endif %}
 
 <script type="text/javascript">
 
 $(document).ready(function(){
 	
-	var g1 = new JustGage({
-		id: "gauge1", 
-		value: 0, 
-		min: -100,
-		max: 100,
-		title: 'Temperature #1',
-		titleFontColor:"#0f0f0f",
-		gaugeWidthScale:0.4,
-		levelColorsGradient:true,
-		refreshAnimationType:"linear",
-		refreshAnimationTime:3,
-		startAnimationType:"linear",
-		startAnimationTime:3,
-		labelFontColor:"#000000",
-		gaugeColor:"#eeeeee",
-		valueFontColor:"#000000",
-		label: "Deg"
-  	});
-  var g2 = new JustGage({
-		id: "gauge2", 
-		value: 0, 
-		min: -100,
-		max: 100,
-		title: 'Temperature #2',
-		titleFontColor:"#0f0f0f",
-		gaugeWidthScale:0.4,
-		levelColorsGradient:true,
-		refreshAnimationType:"linear",
-		refreshAnimationTime:3,
-		startAnimationType:"linear",
-		startAnimationTime:3,
-		labelFontColor:"#000000",
-		gaugeColor:"#eeeeee",
-		valueFontColor:"#000000",
-		label: "Deg"
-	});
-  var g3 = new JustGage({
-		id: "gauge3", 
-		value: 0, 
-		min: -100,
-		max: 100,
-		title: 'Temperature #3',
-		titleFontColor:"#0f0f0f",
-		gaugeWidthScale:0.4,
-		levelColorsGradient:true,
-		refreshAnimationType:"linear",
-		refreshAnimationTime:3,
-		startAnimationType:"linear",
-		startAnimationTime:3,
-		labelFontColor:"#000000",
-		gaugeColor:"#eeeeee",
-		valueFontColor:"#000000",
-		label: "Deg"
-	});
-  var g4 = new JustGage({
-		id: "gauge4", 
-		value: 0, 
-		min: -100,
-		max: 100,
-		title: 'Temperature #4',
-		titleFontColor:"#0f0f0f",
-		gaugeWidthScale:0.4,
-		levelColorsGradient:true,
-		refreshAnimationType:"linear",
-		refreshAnimationTime:3,
-		startAnimationType:"linear",
-		startAnimationTime:3,
-		labelFontColor:"#000000",
-		gaugeColor:"#eeeeee",
-		valueFontColor:"#000000",
-		label: "Deg"
-	});	
-  
+	var sensors = []
+	{% for sensor in sensors %}
+		sensors.push(new JustGage({
+			id: "{{sensor.uid}}", 
+			value: 0, 
+			min: {{sensor.min}},
+			max: {{sensor.max}},
+			title: "{{sensor.name}}",
+			titleFontColor:"#0f0f0f",
+			gaugeWidthScale:0.9,
+			levelColorsGradient:true,
+			refreshAnimationType:"linear",
+			refreshAnimationTime:3,
+			startAnimationType:"linear",
+			startAnimationTime:3,
+			labelFontColor:"#000000",
+			gaugeColor:"#eeeeee",
+			valueFontColor:"#000000",
+			label: "{{sensor.unit}}"
+		}));
+	{% endfor %}
+	
 	var socket_uri = "ws://127.0.0.1:9002/sensor"
 	var sock = new WebSocket(socket_uri)
 	
@@ -129,6 +73,7 @@ $(document).ready(function(){
 		
 		if(jsondata.value>0){
 			g1.refresh(jsondata.value);
+			console.log(jsondata.value);
 		}
 		
 	}

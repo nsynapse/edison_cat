@@ -117,7 +117,7 @@ $(document).ready(function(){
 	}
 	sock.onclose = function(e){
 		console.log("connection closed(" + e.code + ")")
-		$('#connection').html("<div class='callout callout-danger' style='margin-bottom: 0!important;'><h4><i class='fa fa-ban'></i> Fail:</h4>Alert!"+socket_uri+" connection is failed.</div></div>");
+		$('#connection').html("<div class='callout callout-danger' style='margin-bottom: 0!important;'><h4><i class='fa fa-ban'></i> Fail:</h4>"+socket_uri+" connection is failed.</div></div>");
 	}
 	sock.onmessage = function(e){
 		var jsondata = jQuery.parseJSON(e.data);

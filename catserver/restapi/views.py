@@ -105,3 +105,29 @@ def network_command(request, cmd):
 
 
 
+"""
+API fpr sensor control
+"""
+@api_view(['GET'])
+def sensor_api(request):
+    _response = {}
+    
+    if request.method == 'GET':
+        try:
+            _q = request.GET.get('q',None)
+            _uid = request.GET.get('p',None)
+            _response = Control_Sensor(request).getInfo(_uid)
+            return Response(_response, status.HTTP_200_OK)
+            
+        except Exception, e:
+            print "Exception(sensor) : ", e
+    else:
+        return Response(_response, status.HTTP_400_BAD_REQUEST)
+    
+    return Response(_response, status.HTTP_404_NOT_FOUND)
+        
+        
+        
+        
+        
+        

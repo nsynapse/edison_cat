@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal" id="newsensormodal" tabindex="-1" role="dialog" aria-labelledby="newsensormodal_label" aria-hidden="true">
+<div class="modal" id="editsensormodal" tabindex="-1" role="dialog" aria-labelledby="editsensormodal_label" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -8,24 +8,22 @@
 		<div class="modal-body">
 		<form enctype="multipart/form-data" class="form-horizontal" action="{% url 'control_sensor' cmd='add' %}" method="post">{% csrf_token %}
 			<fieldset>
-				<legend>New Sensor Device</legend>
-				
-				<input id="id_sensor_uid" name="sensor_uid" type="hidden" value="">
+				<legend>Sensor Device</legend>
 				
 				<!-- UID -->
-				<!-- <div class="form-group">
+				<div class="form-group">
 			  		<label class="col-xs-12 col-sm-3 control-label" for="id_sensor_uid"><strong class="text-danger">*</strong>UID</label>  
 		  			<div class="col-xs-12 col-sm-9">
-		  				<input class="form-control input" id="id_sensor_uid" name="address" type="text" placeholder="sensor UID" title="UID" required readonly>
+		  				<input class="form-control input" id="id_sensor_uid_edit" name="sensor_uid" type="text" placeholder="Sensor UID" title="UID" required readonly>
 		  			</div>
-				</div>-->
+				</div>
 				
 				
 				<!-- sensor Name -->
 				<div class="form-group">
 			  		<label class="col-xs-12 col-sm-3 control-label" for="id_sensor_name"><strong class="text-danger">*</strong>Sensor Name</label>  
 		  			<div class="col-xs-12 col-sm-9">
-		  				<input class="form-control input" id="id_sensor_name" name="sensor_name" type="text" placeholder="sensor Name" title="sensor Name" required>
+		  				<input class="form-control input" id="id_sensor_name_edit" name="sensor_name" type="text" placeholder="sensor Name" title="sensor Name" required>
 		  			</div>
 				</div>
 				
@@ -33,14 +31,14 @@
 				<div class="form-group">
 			  		<label class="col-xs-12 col-sm-3 control-label" for="id_sensor_range_min">Minimum Value</label>  
 		  			<div class="col-xs-12 col-sm-9">
-		  				<input class="form-control input" id="id_sensor_range_min" name="sensor_range_min" type="number" placeholder="Min. Value of the sensor" title="Minimum Value">
+		  				<input class="form-control input" id="id_sensor_range_min_edit" name="sensor_range_min" type="number" placeholder="Min. Value of the sensor" title="Minimum Value">
 		  			</div>
 				</div>
 				
 				<div class="form-group">
 			  		<label class="col-xs-12 col-sm-3 control-label" for="id_sensor_range_max">Maximum Value</label>  
 		  			<div class="col-xs-12 col-sm-9">
-		  				<input class="form-control input" id="id_sensor_range_max" name="sensor_range_max" type="number" placeholder="Max. Value of the sensor" title="Maximum Value">
+		  				<input class="form-control input" id="id_sensor_range_max_edit" name="sensor_range_max" type="number" placeholder="Max. Value of the sensor" title="Maximum Value">
 		  			</div>
 				</div>
 				
@@ -48,14 +46,14 @@
 				<div class="form-group">
 			  		<label class="col-xs-12 col-sm-3 control-label" for="id_sensor_data_unit">Data Unit</label>  
 		  			<div class="col-xs-12 col-sm-9">
-		  				<input class="form-control input" id="id_sensor_data_unit" name="sensor_data_unit" type="text" placeholder="Data unit" title="Data unit">
+		  				<input class="form-control input" id="id_sensor_data_unit_edit" name="sensor_data_unit" type="text" placeholder="Data unit" title="Data unit">
 		  			</div>
 				</div>
 				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					
-					<button class="btn btn-success" id="id_sensor_add" type="submit">Add</button>
+					<button class="btn btn-success" id="id_sensor_update" type="submit">Update</button>
 					
 				</div>
 			</fieldset>

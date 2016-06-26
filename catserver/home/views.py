@@ -24,7 +24,8 @@ def control(request):
     return render_to_response("control.html", context_instance=RequestContext(request))
 
 def sensor(request):
-    return render_to_response("sensor.html", context_instance=RequestContext(request))
+    all_sensors = DBSensor.objects.all()
+    return render_to_response("sensor.html", {'sensors':all_sensors}, context_instance=RequestContext(request))
 
 def setting_log(request):
     return render_to_response("setting_log.html", context_instance=RequestContext(request))

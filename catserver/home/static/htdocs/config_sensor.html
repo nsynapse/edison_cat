@@ -2,9 +2,8 @@
   <div class="box-header">
     <h3 class="box-title">Sensor Device Configuration</h3>
 
-
     <div class="box-tools">
-    	<a href="javascript:void(0);" class="btn btn-xs btn-success btn-flat pull-right" onclick="#" data-toggle="modal" data-target="#newsensormodal"><i class="fa fa-plus"></i> New Device</a>
+    	<a href="#" class="btn btn-xs btn-success btn-flat pull-right" data-toggle="modal" data-target="#newsensormodal"><i class="fa fa-plus"></i> New Device</a>
     </div>
   </div>
   <!-- /.box-header -->
@@ -13,19 +12,17 @@
       <tr>
         <th style="width:15px">#</th>
         <th>Name</th>
-        <th style="width:20%">Range</th>
-        <th style="width:25%">UID</th>
-        <th style="width:20%">Manage</th>
+        <th style="width:25%">Range</th>
+        <th style="width:25%">Manage</th>
       </tr>
       {% for sensor in sensors %}
       <tr>
       	<td>{{forloop.counter}}</td>
-      	<td>{{sensor.name}}</td>
+      	<td><a class="detail" id="{{sensor.uid}}" href="#">{{sensor.name}}</a></td>
       	<td>[{{sensor.min}}, {{sensor.max}}]</td>
-      	<td>{{sensor.uid}}</td>
-      	<td>
-      		<form class="btn-group pull-right" method="post" action="{% url 'control_sensor' cmd='delete' %}" onsubmit="return confirm('Delete?');">{% csrf_token %}
-      			<input id="id_device_uid" name="device_uid" type="hidden" value="{{sensor.uid}}">
+      	<td>	
+      		<form class="btn-group" method="post" action="{% url 'control_sensor' cmd='delete' %}" onsubmit="return confirm('Delete?');">{% csrf_token %}
+      			<input id="id_sensor_uid" name="sensor_uid" type="hidden" value="{{sensor.uid}}">
       			<button type="submit" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Del</button>
       		</form>
       	</td>
@@ -35,7 +32,34 @@
   </div>
   <!-- /.box-body -->
   <div class="box-footer">
-  </div>
+	</div>
 </div>
 
+<script>
+
+$(document).on('click', '.detail', function(){
+	var sensor_uid = $(this).attr("id");
+	$.ajax({
+		'url':'/api/sensor/',
+		'type':'GET',
+		'data':{
+			'q':'info',
+			'p':sensor_uid
+		},
+		'success':function(jsondata){
+			$("#id_sensor_uid_edit").val(jsondata.sensor_uid);
+			$("#id_sensor_name_edit").val(jsondata.sensor_name);
+			$("#id_sensor_range_min_edit").val(jsondata.sensor_range_min);
+			$("#id_sensor_range_max_edit").val(jsondata.sensor_range_max);
+			$("#id_sensor_data_unit_edit").val(jsondata.sensor_unit);
+			$('#editsensormodal').modal();
+		},
+		'error':function(e){
+			console.log("Invalid Request.");
+		}
+	});
+});
+</script>
+
 {% include 'popup/new_sensor.html' %}
+{% include 'popup/edit_sensor.html' %}
