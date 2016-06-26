@@ -6,7 +6,7 @@
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			</div>
 		<div class="modal-body">
-		<form enctype="multipart/form-data" class="form-horizontal" action="{% url 'control_sensor' cmd='add' %}" method="post">{% csrf_token %}
+		<form enctype="multipart/form-data" class="form-horizontal" action="{% url 'control_sensor' cmd='update' %}" method="post">{% csrf_token %}
 			<fieldset>
 				<legend>Sensor Device</legend>
 				

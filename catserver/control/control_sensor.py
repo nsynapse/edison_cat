@@ -48,9 +48,9 @@ class Control_Sensor(object):
     def delete(self):
         if self.request.method == 'POST':
             try:
-                _uid = self.request.POST['sensor_uid']
+                _uid = self.request.POST.get('sensor_uid','')
                 _sensor = DB.objects.filter(uid=_uid)
-                
+            
                 if _sensor.exists():
                     _sensor[0].delete()
                     return True
@@ -58,8 +58,37 @@ class Control_Sensor(object):
                 print "Exception : ", e
         return False
     
+    """
+    Update sensor information
+    """
     def update(self):
-        pass
+        if self.request.method == 'POST':
+            try:
+                _uid = self.request.POST.get('sensor_uid','')
+                _sensor = DB.objects.get(uid=_uid)
+                if _sensor is not None:
+                    _sensor.name = self.request.POST.get('sensor_name','')
+                    try:
+                        _sensor.min = float(self.request.POST.get('sensor_range_min',0.0))
+                    except ValueError:
+                        _sensor.min = 0.0
+                        
+                    try:
+                        _sensor.max = float(self.request.POST.get('sensor_range_max',1.0))
+                    except ValueError:
+                        _sensor.max = 1.0
+                    
+                    try:
+                        _sensor.unit = self.request.POST.get('sensor_data_unit','')
+                    except ValueError:
+                        _sensor.unit = ''
+                        
+                    _sensor.save()
+                    return True
+            except Exception, e:
+                print "Exception(Sensor update) : ", e
+        return False
+                    
     
     """
     Getting sensor information from database
