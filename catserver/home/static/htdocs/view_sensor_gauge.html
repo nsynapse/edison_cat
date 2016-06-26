@@ -34,26 +34,26 @@
 
 $(document).ready(function(){
 	
-	var sensors = []
+	var sensors = {}
 	{% for sensor in sensors %}
-		sensors.push(new JustGage({
+		sensors[{{forloop.counter}}] = new JustGage({
 			id: "{{sensor.uid}}", 
 			value: 0, 
 			min: {{sensor.min}},
 			max: {{sensor.max}},
 			title: "{{sensor.name}}",
 			titleFontColor:"#0f0f0f",
-			gaugeWidthScale:0.9,
+			gaugeWidthScale:0.4,
 			levelColorsGradient:true,
 			refreshAnimationType:"linear",
-			refreshAnimationTime:3,
+			refreshAnimationTime:1,
 			startAnimationType:"linear",
-			startAnimationTime:3,
+			startAnimationTime:1,
 			labelFontColor:"#000000",
 			gaugeColor:"#eeeeee",
 			valueFontColor:"#000000",
 			label: "{{sensor.unit}}"
-		}));
+		});
 	{% endfor %}
 	
 	var socket_uri = "ws://127.0.0.1:9002/sensor"
@@ -71,10 +71,8 @@ $(document).ready(function(){
 	sock.onmessage = function(e){
 		var jsondata = jQuery.parseJSON(e.data);
 		
-		if(jsondata.value>0){
-			g1.refresh(jsondata.value);
-			console.log(jsondata.value);
-		}
+		if(jsondata.id>0)
+			sensors[jsondata.id].refresh(jsondata.value);
 		
 	}
 
