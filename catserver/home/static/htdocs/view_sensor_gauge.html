@@ -14,13 +14,13 @@
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body no-padding">
-					{% for sensor in sensors %}
 					<div class="row">
-		                <div class="col-xs-6 col-md-3 text-center">
-		                  <div id="{{sensor.uid}}" style="width:200px; height:150px;"></div>
+					{% for sensor in sensors %}
+		                <div class="col-lg-2 col-xs-6 col-md-3 text-center">
+		                  <div id="{{sensor.uid}}" style="width:150px; height:150px;"></div>
 		                </div>
-		             </div>
 					{% endfor %}
+					</div>
 						
 					</div>
 					<!-- /.box-body -->
