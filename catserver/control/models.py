@@ -33,8 +33,8 @@ class DBGestureFile(DBFile):
         
         
 class DBSystemInfo(models.Model):
-    net_address = models.CharField(max_length=20, blank=False)
-    net_if = models.CharField(max_length=20, blank=False)
+    net_address = models.CharField(max_length=20, blank=False, default="")
+    net_if = models.CharField(max_length=20, blank=False, default="")
     websocket_port = models.IntegerField(blank=False, default=9002)
     
     def __unicode__(self):
@@ -52,7 +52,7 @@ Sensor device data
 """
 class DBSensor(models.Model):
     uid = models.CharField(max_length=64, blank=False, default="")
-    name = models.CharField(max_length=100, blank=False)
+    name = models.CharField(max_length=100, blank=False, default="")
     min = models.FloatField(blank=False, default=-1.0)
     max = models.FloatField(blank=False, default=1.0)
     unit = models.CharField(max_length=20, blank=False, default="")
