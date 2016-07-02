@@ -16,6 +16,7 @@ urlpatterns = [
                        url(r'^setting/sensor$', views.setting_sensor, name="setting_sensor"),
                        url(r'^control/$', views.control, name="control"),
                        url(r'^sensor/$', views.sensor, name="sensor"),
+                       url(r'^sensordetail/(?P<uid>.*)$', views.sensordetail, name="sensordetail"),
                        url(r'^dashboard/$', views.dashboard, name="dashboard"),
                        
                        

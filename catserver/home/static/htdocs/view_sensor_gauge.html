@@ -25,7 +25,7 @@
 					<!-- /.box-body -->
 					<div class="box-footer no-padding">
 						<a href="javascript:void(0);" class="btn btn-sm btn-warning btn-flat pull-left" onclick="camera_capture();"><i class="fa fa-play"></i> Log Start</a>
-						<a href="javascript:void(0);" class="btn btn-sm btn-flat pull-right">Log View <i class="fa fa-angle-right"></i></a>
+						<a href="{% url 'sensordetail' uid=sensor.uid %}" class="btn btn-sm btn-flat pull-right">More <i class="fa fa-angle-right"></i></a>
 	
 					</div><!-- /.box-footer -->
 				</div>
@@ -64,12 +64,10 @@ $(document).ready(function(){
 	var sock = new WebSocket(socket_uri)
 	
 	sock.onopen = function(){
-		console.log("connection to " + socket_uri);
 		$('#connection').html("<div class='callout callout-success' style='margin-bottom: 0!important;'><h4><i class='fa fa-info'></i> Success:</h4> Successfully connected to the server "+socket_uri+".</div></div>");
 		
 	}
 	sock.onclose = function(e){
-		console.log("connection closed(" + e.code + ")")
 		$('#connection').html("<div class='callout callout-danger' style='margin-bottom: 0!important;'><h4><i class='fa fa-ban'></i> Fail:</h4>Alert!"+socket_uri+" connection is failed.</div></div>");
 	}
 	sock.onmessage = function(e){

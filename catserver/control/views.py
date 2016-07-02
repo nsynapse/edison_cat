@@ -5,6 +5,7 @@ from control_robot import Control_Robot as Robot
 from control_vision import Control_Vision
 from control_sensor import Control_Sensor
 from control_system import Control_System
+#from control_log import Control_Log
 from django.http.response import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
@@ -35,3 +36,16 @@ def control_system(request, cmd):
         Control_System(request).update()
         
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+"""
+Control Sensor Log
+"""
+"""
+def control_log(request, cmd):
+    _cmd_list = ['monitor', 'view']
+    if cmd == _cmd_list[0]: #Monitor
+        Control_Log(request).monitor()
+    elif cmd == _cmd_list[1]: #view
+        Control_Log(request).view()
+"""

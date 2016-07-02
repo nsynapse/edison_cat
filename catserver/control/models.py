@@ -45,6 +45,13 @@ class DBSystemInfo(models.Model):
 class DBLogFile(DBFile):
     def __unicode__(self):
         return DBFile.__unicode__(self)
+
+"""
+Sensor Log Database
+"""    
+class DBSensorLogFile(DBFile):
+    def __unicode__(self):
+        return DBFile.__unicode__(self)
         
         
 """

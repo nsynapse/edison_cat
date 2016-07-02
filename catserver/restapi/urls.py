@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^vision/(?P<cmd>.*)$', views.vision_command, name='vision_command'),
     url(r'^sensor/$', views.sensor_api, name='api_sensor'),
     url(r'^camera/(?P<cmd>.*)$', views.camera_command, name='camera_command'),
+    url(r'^log/(?P<cmd>.*)$', views.log_command, name='log_command'),
     url(r'^network/(?P<cmd>.*)$', views.network_command, name='network_command'),
 ]
 

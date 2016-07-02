@@ -1,0 +1,106 @@
+
+{%load staticfiles %}
+    
+<div class="row">
+	<div class="col-md-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">{{sensor.name}}</h3>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body no-padding">
+				<div id="placeholder" class="demo-placeholder"></div>
+			</div>
+			<!-- /.box-body -->
+		</div>
+	<!-- /.box -->
+	</div><!-- /.col -->
+</div><!-- /.row -->
+
+
+<script type="text/javascript">
+var data = [], totalPoints = 300;
+
+function getRandomData() {
+
+	if (data.length > 0)
+		data = data.slice(1);
+
+	// Do a random walk
+
+	while (data.length < totalPoints) {
+
+		var prev = data.length > 0 ? data[data.length - 1] : 50,
+			y = prev + Math.random() * 10 - 5;
+
+		if (y < 0) {
+			y = 0;
+		} else if (y > 100) {
+			y = 100;
+		}
+
+		data.push(y);
+	}
+
+	// Zip the generated y values with the x values
+
+	var res = [];
+	for (var i = 0; i < data.length; ++i) {
+		res.push([i, data[i]])
+	}
+
+	return res;
+}
+
+//web socket server connection
+$(document).ready(function(){
+
+	var plot = $.plot("#placeholder", [ getRandomData() ], {
+		series: {
+			shadowSize: 0	// Drawing is faster without shadows
+		},
+		yaxis: {
+			min: 0,
+			max: 100
+		},
+		xaxis: {
+			show: false
+		}
+	});
+
+	
+	var socket_uri = "ws://{{system.0.net_address}}:{{system.0.websocket_port}}/sensor"
+	var sock = new WebSocket(socket_uri)
+	
+	$("#activate").click(function(){
+		var data = {}
+		data['id'] = 1;
+		data['command'] = 0x10;
+		data['value'] = 100;
+		data['list'] = [1,2,3,4];
+		sock.send(JSON.stringify(data));
+    });
+	
+	sock.onopen = function(){
+		$('#connection').html("<div class='callout callout-success' style='margin-bottom: 0!important;'><h4><i class='fa fa-info'></i> Success:</h4> Successfully connected to the server "+socket_uri+".</div></div>");
+		
+	}
+	sock.onclose = function(e){
+		$('#connection').html("<div class='callout callout-danger' style='margin-bottom: 0!important;'><h4><i class='fa fa-ban'></i> Fail:</h4>"+socket_uri+" connection is failed.</div></div>");
+	}
+	sock.onmessage = function(e){
+		var jsondata = jQuery.parseJSON(e.data);
+		
+		if(jsondata.value>0) 
+			$('#touch_'+jsondata.id.toString()).html("<span class='badge bg-red'>Touch</span>"); 
+		else
+			$('#touch_'+jsondata.id.toString()).html("<span class='badge bg-black'>Touch</span>");
+		
+	}
+});
+
+</script>

@@ -9,6 +9,8 @@ from rest_framework import viewsets, generics, status
 from util import Host
 from control.control_vision import Control_Vision
 from control.control_sensor import Control_Sensor
+from rest_framework.status import HTTP_400_BAD_REQUEST
+from api_log import API_Log
 
 
 """
@@ -106,7 +108,7 @@ def network_command(request, cmd):
 
 
 """
-API fpr sensor control
+API for sensor control
 """
 @api_view(['GET'])
 def sensor_api(request):
@@ -128,6 +130,28 @@ def sensor_api(request):
         
         
         
+"""
+API for log control
+"""
+@api_view(['GET'])
+def log_command(request):
+    _response = {}
+    
+    if request.method == 'GET':
+        try:
+            _uid = request.GET.get('uid',None)
+        except Exception, e:
+            print "Exception(log) : ", e
+    elif request.method == 'POST':
+        try:
+            pass
+        except Exception, e:
+            print "Exception(log) : ", e
+    else:
+        return Response(_response, status,HTTP_400_BAD_REQUEST)
+    
+    
+    return Response(_response, status.HTTP_404_NOT_FOUND)
         
         
         
