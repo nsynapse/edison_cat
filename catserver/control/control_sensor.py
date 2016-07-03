@@ -35,9 +35,9 @@ class Control_Sensor(object):
                     new_db.unit = ''
                     
                 try:
-                    new_db.length = int(self.request.POST.get('sensor_data_length',100))
+                    new_db.buffersize = int(self.request.POST.get('sensor_data_buffer_size',100))
                 except ValueError:
-                    new_db.length = 100;
+                    new_db.buffersize = 100;
                         
                 
                 new_db.save()
@@ -89,9 +89,9 @@ class Control_Sensor(object):
                         _sensor.unit = ''
                         
                     try:
-                        _sensor.length = self.request.POST.get('sensor_data_length',100)
+                        _sensor.buffersize = self.request.POST.get('sensor_data_buffer_size',100)
                     except:
-                        _sensor.length = 100;
+                        _sensor.buffersize = 100;
                         
                     _sensor.save()
                     return True
@@ -114,7 +114,7 @@ class Control_Sensor(object):
                     _response['sensor_range_min'] = _sensor[0].min
                     _response['sensor_range_max'] = _sensor[0].max
                     _response['sensor_data_unit'] = _sensor[0].unit
-                    _response['sensor_data_length'] = _sensor[0].length
+                    _response['sensor_data_buffer_size'] = _sensor[0].buffersize
                     return _response
                 else:
                     print sensor_uid + " does not exist"

@@ -3,6 +3,7 @@
 <!-- graph view -->    
 <div class="row">
 	<div class="graph-container">
+		<div class="row text-center">"{{sensor.name}}" Sensor Data</div>
 		<div id="placeholder" class="graph-placeholder"></div>
 	</div>
 </div>
@@ -86,7 +87,7 @@ var data = [];
 var graphplot;
 
 function initdata(){
-	for(var i=0;i<{{sensor.length}};i++){
+	for(var i=0;i<{{sensor.buffersize}};i++){
 		data.push([i, {{sensor.min}}]);
 	}
 	return data
@@ -94,15 +95,15 @@ function initdata(){
 
 
 //input single value
-function update(value){
-	if(data.length>={{sensor.length}}){
+function graph_update(value){
+	if(data.length>={{sensor.buffersize}}){
 		data = data.slice(1);
 	}
-	data.push([{{data.length}}, value]);
 	
 	for(var i=0;i<data.length;i++){
 		data[i][0]--;
 	}
+	data.push([data.length, value]);
 		
 	graphplot.setData([data]);
 	graphplot.draw();
@@ -145,11 +146,11 @@ $(document).ready(function(){
 	}
 	sock.onmessage = function(e){
 		var jsondata = jQuery.parseJSON(e.data);
-		
-		if(jsondata.value>0) 
-			$('#touch_'+jsondata.id.toString()).html("<span class='badge bg-red'>Touch</span>"); 
-		else
-			$('#touch_'+jsondata.id.toString()).html("<span class='badge bg-black'>Touch</span>");
+		console.log(jsondata);
+		if(jsondata.id=={{sensor.id}}){
+			graph_update(jsondata.value[0]);
+			$('#sensordata').text(jsondata.value[0]);
+		}
 		
 	}
 });
