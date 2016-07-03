@@ -51,7 +51,8 @@ $(document).on('click', '.detail', function(){
 			$("#id_sensor_name_edit").val(jsondata.sensor_name);
 			$("#id_sensor_range_min_edit").val(jsondata.sensor_range_min);
 			$("#id_sensor_range_max_edit").val(jsondata.sensor_range_max);
-			$("#id_sensor_data_unit_edit").val(jsondata.sensor_unit);
+			$("#id_sensor_data_unit_edit").val(jsondata.sensor_data_unit);
+			$("#id_sensor_data_length_edit").val(jsondata.sensor_data_length);
 			$('#editsensormodal').modal();
 		},
 		'error':function(e){

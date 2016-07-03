@@ -63,6 +63,7 @@ class DBSensor(models.Model):
     min = models.FloatField(blank=False, default=-1.0)
     max = models.FloatField(blank=False, default=1.0)
     unit = models.CharField(max_length=20, blank=False, default="")
+    length = models.IntegerField(blank=False, default=100)
     
     def __unicode__(self):
         return self.name

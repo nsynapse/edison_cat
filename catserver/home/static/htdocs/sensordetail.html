@@ -3,10 +3,11 @@
 {%load staticfiles %}
 
 {% block css %}
+	<link href="{% static 'css/vendor/flot/graph.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block contents_header %}
-<h1>Sensors</h1>
+<h1><i class="fa fa-bar-chart"></i> Sensor Monitor : {{sensor.name}} </h1>
 {% endblock %}
 
 {% block contents %}

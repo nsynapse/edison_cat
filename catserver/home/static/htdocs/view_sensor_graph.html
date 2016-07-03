@@ -1,77 +1,128 @@
 
 {%load staticfiles %}
-    
+<!-- graph view -->    
 <div class="row">
-	<div class="col-md-12">
+	<div class="graph-container">
+		<div id="placeholder" class="graph-placeholder"></div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-md-6">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">{{sensor.name}}</h3>
+				<h3 class="box-title"><i class="fa fa-info-circle"></i> Info</h3>
 				<div class="box-tools pull-right">
 					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 					<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
 				</div>
 			</div>
 			<!-- /.box-header -->
-			<div class="box-body no-padding">
-				<div id="placeholder" class="demo-placeholder"></div>
+			<div class="box-body no-padding table-responsive">
+				<table class="table">
+					<tr>
+						<td>ID</td>
+						<td>{{sensor.id}}</td>
+					</tr>
+					<tr>
+						<td>Sensor Name</td>
+						<td>{{sensor.name}}</td>
+					</tr>
+					<tr>
+						<td>Y axis range</td>
+						<td>[{{sensor.min}}, {{sensor.max}}]</td>
+					</tr>
+					<tr>
+						<td style="width:50%">Data</td>
+						<td id="sensordata">-</td>
+					</tr>
+				</table>
 			</div>
 			<!-- /.box-body -->
 		</div>
 	<!-- /.box -->
 	</div><!-- /.col -->
+	
+	<div class="col-xs-12 col-md-6">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title"><i class="fa fa-file-text-o"></i> Log</h3>
+				<div class="box-tools pull-right">
+					<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+				</div>
+			</div>
+			<div class="box-body no-padding table-responsive">
+				<table class="table">
+					<tr>
+						<th style="width:15px">#</th>
+						<th>Date</th>
+						<th style="width:170px">Control</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>{{sensor.id}}</td>
+						<td>
+							<div class="btn-group btn-group-xs" role="group" aria-label="...">
+								<a href="#" class="btn btn-default"><i class="fa fa-area-chart"></i> View</a>
+								<a href="#" class="btn btn-default"><i class="fa fa-download"></i> Download</a>
+							</div>
+						</td>
+					</tr>
+					
+				</table>
+			</div>
+			<div class="box-footer no-padding">
+				<a href="javascript:void(0);" class="btn btn-sm btn-warning btn-flat pull-left"><i class="fa fa-play"></i> Log Start</a>
+			</div><!-- /.box-footer -->
+		</div>
+	</div>
+	
 </div><!-- /.row -->
 
 
 <script type="text/javascript">
-var data = [], totalPoints = 300;
+var data = [];
+var graphplot;
 
-function getRandomData() {
+function initdata(){
+	for(var i=0;i<{{sensor.length}};i++){
+		data.push([i, {{sensor.min}}]);
+	}
+	return data
+}
 
-	if (data.length > 0)
+
+//input single value
+function update(value){
+	if(data.length>={{sensor.length}}){
 		data = data.slice(1);
-
-	// Do a random walk
-
-	while (data.length < totalPoints) {
-
-		var prev = data.length > 0 ? data[data.length - 1] : 50,
-			y = prev + Math.random() * 10 - 5;
-
-		if (y < 0) {
-			y = 0;
-		} else if (y > 100) {
-			y = 100;
-		}
-
-		data.push(y);
 	}
-
-	// Zip the generated y values with the x values
-
-	var res = [];
-	for (var i = 0; i < data.length; ++i) {
-		res.push([i, data[i]])
+	data.push([{{data.length}}, value]);
+	
+	for(var i=0;i<data.length;i++){
+		data[i][0]--;
 	}
-
-	return res;
+		
+	graphplot.setData([data]);
+	graphplot.draw();
 }
 
 //web socket server connection
 $(document).ready(function(){
 
-	var plot = $.plot("#placeholder", [ getRandomData() ], {
+	graphplot = $.plot("#placeholder", [initdata()], {
 		series: {
 			shadowSize: 0	// Drawing is faster without shadows
 		},
 		yaxis: {
-			min: 0,
-			max: 100
+			min: {{sensor.min}},
+			max: {{sensor.max}}
 		},
 		xaxis: {
-			show: false
+			show: true
 		}
 	});
-
 	
 	var socket_uri = "ws://{{system.0.net_address}}:{{system.0.websocket_port}}/sensor"
 	var sock = new WebSocket(socket_uri)
