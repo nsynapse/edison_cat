@@ -64,6 +64,7 @@ class DBSensor(models.Model):
     max = models.FloatField(blank=False, default=1.0)
     unit = models.CharField(max_length=20, blank=False, default="")
     buffersize = models.IntegerField(blank=False, default=100)
+    logging = models.BooleanField(blank=False, default=False)
     
     def __unicode__(self):
         return self.name
