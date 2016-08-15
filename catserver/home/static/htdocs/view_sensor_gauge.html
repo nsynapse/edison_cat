@@ -3,31 +3,6 @@
 {% if sensors.count > 0 %}
 	<div class="row">
 	
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-			<div class="box">
-				<div class="box-header">
-					<i class="fa fa-cog"></i>
-					<h3 class="box-title">Log Control</h3>
-					<div class="box-tools pull-right">
-					</div>
-				</div>
-				<div class="box-body no-padding text-center">
-					<div class="small-box bg-yellow">
-						<div class="inner">
-							<a class="btn btn-app">
-			                <i class="fa fa-circle"></i> Logging
-			              </a>
-			              <a class="btn btn-app">
-			                <i class="fa fa-stop"></i> Stop
-			              </a>
-						</div>
-					</div>
-				</div>
-				<div class="box-footer no-padding">
-				</div>
-			</div>
-		</div>
-	
 	{% for sensor in sensors %}
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 				<div class="box">
@@ -55,12 +30,14 @@
 			<!-- /.box -->
 			</div><!-- /.col -->
 		{% endfor %}
-		</div>
+	</div>
 {% endif %}
 
 <script type="text/javascript">
 
 $(document).ready(function(){
+	
+	$("#id_logstop").hide();
 	
 	var sensors = {}
 	{% for sensor in sensors %}
@@ -83,8 +60,10 @@ $(document).ready(function(){
 		});
 	{% endfor %}
 	
-	var socket_uri = "ws://{{system.0.net_address}}:{{system.0.websocket_port}}/sensor"
+	var socket_uri = "ws://{{system.0.net_address}}:{{system.0.websocket_port}}/sensor";
+	var socket_command_uri = "ws://{{system.0.net_address}}:{{system.0.websocket_port}}/command";
 	var sock = new WebSocket(socket_uri)
+	var sock_command = new WebSocket(socket_command_uri)
 	
 	sock.onopen = function(){
 		$('#connection').html("<div class='callout callout-success' style='margin-bottom: 0!important;'><h4><i class='fa fa-info'></i> Success:</h4> Successfully connected to the server "+socket_uri+".</div></div>");
@@ -98,15 +77,28 @@ $(document).ready(function(){
 		
 		if(jsondata.id>0)
 			sensors[jsondata.id].refresh(jsondata.value);
-		
 	}
+	sock_command.onopen = function() { console.log("open");}
+	sock_command.onclose = function() { console.log("close");}
+	sock_command.onmessage = function() { console.log("message");}
 	
-	$("#logstart").click(function(){
+	$("#id_logstart").click(function(){
 		var data = {}
 		data['component'] = "cat_db_control";
-		data['value'] = $("#logstart").val();
+		data['command'] = "run";
 		data['list'] = [1,2,3,4];
-		sock.send(JSON.stringify(data));
+		sock_command.send(JSON.stringify(data));
+		$("#id_logstart").hide();
+		$("#id_logstop").show();
+    });
+	
+	$("#id_logstop").click(function(){
+		var data = {}
+		data['component'] = "cat_db_control";
+		data['command'] = "stop";
+		sock_command.send(JSON.stringify(data));
+		$("#id_logstop").hide();
+		$("#id_logstart").show();
     });
 
 });

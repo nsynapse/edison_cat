@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <title>{{G_TITLE}}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="{{G_DESCRIPTION}}" />
+    <meta name="keywords" content="{{G_KEYWORDS}}" />
+    <meta name="author" content="{{G_AUTHOR}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+
+	{%load staticfiles %}
+
+    <!-- CSS -->
+    <link href="{% static 'css/vendor/bootstrap/bootstrap.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/vendor/AdminLTE/AdminLTE.css' %}" rel="stylesheet">
+    <link href="{% static 'css/vendor/AdminLTE/skins/skin-blue.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/vendor/ionicons/ionicons.css' %}" rel="stylesheet">
+    <link href="{% static 'css/vendor/font-awesome/font-awesome.css' %}" rel="stylesheet">
+	{% block css %}
+	{% endblock %}
+	
+	<!-- JS -->
+    <script src="{% static 'js/vendor/jquery/jquery-2.2.0.js' %}"></script>
+    <script src="{% static 'js/vendor/bootstrap/bootstrap.js' %}"></script>
+    <script src="{% static 'js/vendor/AdminLTE/app.js' %}"></script>
+	{% block javascript %}
+	{% endblock %}
+	<!-- END JS -->
+</head>
+
+<!-- BODY -->
+<body class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
+
+	<!-- HEADER -->
+	<header class="main-header">
+
+		<!-- LOGO -->
+		<a href="/" class="logo">
+			<!-- mini logo for sidebar mini 50x50 pixels -->
+			<span class="logo-mini">{{G_TITLE_MINI}}</span>
+			<!-- logo for regular state and mobile devices -->
+			<span class="logo-lg"><b>{{G_TITLE_LOGO}}</b></span>
+		</a>
+		<!-- END LOGO -->
+        
+		<!-- NAV BAR -->
+		<nav class="navbar navbar-static-top" role="navigation">
+			<!-- Sidebar toggle button-->
+			<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+				<span class="sr-only">Toggle navigation</span>
+			</a>
+			
+		<div class="navbar-custom-menu pull-left">
+			<ul class="nav navbar-nav">
+				<li id="id_logstart" class="info">
+					<a href="#">Log Start <i class="fa fa-play-circle-o"></i></a>
+				</li>
+				<li id="id_logstop" >
+					<a href="#">Log Stop <i class="fa fa-stop-circle-o"></i></a>
+				</li>
+			</ul>
+		</div>
+		
+		</nav>			
+	</header>
+	<!-- END HEADER -->
+	
+      
+	<aside class="main-sidebar">
+			<!-- SIDEBAR MENU-->
+			<section class="sidebar">
+				<ul class="sidebar-menu">
+					<li class="header">MENU</li>
+					{% include "theme/default_menu.html" %}
+				</ul>  
+		</section>
+		<!-- END SIDEBAR MENU -->
+	</aside>
+
+	<!-- CONTENTS WRAPPER -->
+	<div class="content-wrapper">
+       
+       <!-- CONTENTS HEADER -->
+       <section class="content-header">
+		{% block contents_header %}
+		{% endblock %}
+		</section>
+		<!-- END CONTENTS -->
+		
+		<!-- CONTENTS -->
+		<section class="content">
+		{% block contents %}
+		{% endblock %}
+		</section>
+		<!-- END CONTENTS -->
+		
+	</div>
+	<!-- END CONTENTS WRAPPER -->
+
+	<!-- FOOTER -->
+	<footer class="main-footer">
+		<!-- To the right -->
+		<div class="pull-right hidden-xs">for Intel Edison</div>
+		<!-- Default to the left -->
+		<strong>Copyright &copy; 2016 <a href="#">{{G_COMPANY}}</a></strong> All rights reserved.
+	</footer>
+	<!-- END FOOTER -->
+	
+	</div>
+</body>
+<!-- END BODY -->
+</html>
