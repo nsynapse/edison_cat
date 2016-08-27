@@ -1,0 +1,25 @@
+{% extends "theme/default_template.html" %} 
+
+{%load staticfiles %}
+
+{% block css %}
+<link href="{% static 'css/vendor/ionslider/ion.rangeSlider.css' %}" rel="stylesheet">
+<link href="{% static 'css/vendor/ionslider/ion.rangeSlider.skinNice.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block contents_header %}
+<h1>Log Database</h1>
+{% endblock %}
+
+{% block contents %}
+
+{% include "view_logdb.html" %}
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

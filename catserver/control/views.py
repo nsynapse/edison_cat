@@ -5,6 +5,7 @@ from control_robot import Control_Robot as Robot
 from control_vision import Control_Vision
 from control_sensor import Control_Sensor
 from control_system import Control_System
+from control_database import Control_Database
 #from control_log import Control_Log
 from django.http.response import HttpResponse, HttpResponseRedirect
 
@@ -36,6 +37,20 @@ def control_system(request, cmd):
         Control_System(request).update()
         
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+"""
+Control log database
+"""
+def control_database(request, cmd):
+    _cmd_list = ['list']
+    if cmd == _cmd_list[0]: #list
+        Control_Database(request).list()
+        
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
 
 
 """

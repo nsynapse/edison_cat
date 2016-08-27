@@ -41,6 +41,12 @@ def sensor(request):
     system = DBSystemInfo.objects.all()
     return render_to_response("sensor.html", {'sensors':all_sensors, 'system':system}, context_instance=RequestContext(request))
 """
+log database menu
+"""
+def logdb(request):
+    return render_to_response("logdb.html", context_instance=RequestContext(request))
+
+"""
 sensor monitoring in detail
 """
 def sensordetail(request, uid):

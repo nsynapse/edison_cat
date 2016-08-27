@@ -8,6 +8,7 @@ from catserver import settings
 
 urlpatterns = [
                url(r'^sensor/(?P<cmd>.*)$', views.control_sensor, name="control_sensor"),
+               url(r'^database/(?P<cmd>.*)$', views.control_database, name="control_database"),
                url(r'^system/(?P<cmd>.*)$', views.control_system, name="control_system"),
                #url(r'^log/(?P<cmd>.*)$', views.control_log, name="control_log"),
                #url(r'^vision/(?P<cmd>[\.\w-]+)$', views.control_vision, name='control_vision'),
