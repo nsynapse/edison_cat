@@ -92,14 +92,18 @@ def vision_command(request, cmd):
 """
 API for network control
 """
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def network_command(request, cmd):
     _response = {}
     if request.method == 'GET':
         try:
+            if cmd=="save":
+                print request
             return Response(_response, status.HTTP_200_OK)
         except Exception, e:
             print "Exception(network) : ", e
+    elif request.method == 'POST':
+        print cmd
     else:
         return Response(_response, status.HTTP_400_BAD_REQUEST)
     
