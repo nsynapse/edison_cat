@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 from django.contrib.auth.urls import urlpatterns
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.base import RedirectView, TemplateView
 from home import views
