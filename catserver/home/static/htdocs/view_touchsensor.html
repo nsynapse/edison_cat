@@ -97,7 +97,7 @@
 $(document).ready(function(){
 
 	
-	var socket_uri = "ws://{{system.0.net_address}}:{{system.0.websocket_port}}/sensor"
+	var socket_uri = "ws://{{system.0.net_address}}:{{system.0.websocket_port}}/command"
 	var sock = new WebSocket(socket_uri)
 	
 	$("#activate").click(function(){
