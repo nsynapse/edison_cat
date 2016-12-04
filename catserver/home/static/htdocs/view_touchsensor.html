@@ -103,9 +103,7 @@ $(document).ready(function(){
 	$("#activate").click(function(){
 		var data = {}
 		data['id'] = 1;
-		data['command'] = 0x10;
-		data['value'] = 100;
-		data['list'] = [1,2,3,4];
+		data['data'] = [0xff, 0xff, 0x01, 0x03, 0x02, 0x01, 0x02];
 		sock.send(JSON.stringify(data));
     });
 	
