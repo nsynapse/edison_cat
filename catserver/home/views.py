@@ -34,7 +34,8 @@ def vision(request):
 control menu
 """
 def control(request):
-    return render(request, "control.html")
+    system = DBSystemInfo.objects.all()
+    return render(request, "control.html", {'system':system})
     #return render_to_response("control.html", context=RequestContext(request))
 
 """

@@ -60,6 +60,30 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+	var socket_uri = "ws://{{system.0.net_address}}:{{system.0.websocket_port}}/command"
+	var sock = new WebSocket(socket_uri)
+	
+	sock.onopen = function(){
+		console.log("connection to " + socket_uri);
+		//$('#connection').html("<div class='alert alert-success alert-dismissible'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><h4><i class='icon fa fa-check'></i> Alert!</h4>Successfully connected to the "+socket_uri+"</div>");
+		$('#connection').html("<div class='callout callout-success' style='margin-bottom: 0!important;'><h4><i class='fa fa-info'></i> Success:</h4> Successfully connected to the server "+socket_uri+".</div></div>");
+		
+	}
+	sock.onclose = function(e){
+		console.log("connection closed(" + e.code + ")")
+		$('#connection').html("<div class='callout callout-danger' style='margin-bottom: 0!important;'><h4><i class='fa fa-ban'></i> Fail:</h4>"+socket_uri+" connection is failed.</div></div>");
+	}
+	sock.onmessage = function(e){
+		var jsondata = jQuery.parseJSON(e.data);
+		
+		if(jsondata.value>0) 
+			$('#touch_'+jsondata.id.toString()).html("<span class='badge bg-red'>Touch</span>"); 
+		else
+			$('#touch_'+jsondata.id.toString()).html("<span class='badge bg-black'>Touch</span>");
+		
+	}
+	
+	//slidebar
 	$("#range_axis_lx").ionRangeSlider({
         type: "single",
         min: 0,
@@ -67,16 +91,23 @@ $(document).ready(function() {
         from: 0,
         keyboard: false,
         onStart: function (data) {
-            console.log("onStart");
+            //console.log("onStart");
         },
         onChange: function (data) {
-        	console.log("onChange");
+        	//console.log("onChange");
         },
         onFinish: function (data) {
-        	console.log("onFinish");
+        	//console.log(data);
+        	//console.log(data.from);
+   			var jsondata = {}
+   			jsondata['id'] = 1;
+   			jsondata['data'] = [0xff, 0xff, 0x01, 0x03, 0x02, 0x01, 0x02];
+   			jsondata['value'] = data.from;
+   			sock.send(JSON.stringify(jsondata));
+   			console.log(jsondata);
         },
         onUpdate: function (data) {
-        	console.log("onUpdate");
+        	//console.log("onUpdate");
         }
     });
 	
@@ -87,16 +118,21 @@ $(document).ready(function() {
         from: 0,
         keyboard: false,
         onStart: function (data) {
-            console.log("onStart");
+            //console.log("onStart");
         },
         onChange: function (data) {
-        	console.log("onChange");
+        	//console.log("onChange");
         },
         onFinish: function (data) {
-        	console.log("onFinish");
+        	var jsondata = {}
+        	jsondata['id'] = 2;
+        	jsondata['data'] = [0xff, 0xff, 0x01, 0x03, 0x02, 0x01, 0x02];
+        	jsondata['value'] = data.from;
+   			sock.send(JSON.stringify(jsondata));
+   			console.log(jsondata);
         },
         onUpdate: function (data) {
-        	console.log("onUpdate");
+        	//console.log("onUpdate");
         }
     });
 	
@@ -107,16 +143,21 @@ $(document).ready(function() {
         from: 0,
         keyboard: false,
         onStart: function (data) {
-            console.log("onStart");
+            //console.log("onStart");
         },
         onChange: function (data) {
-        	console.log("onChange");
+        	//console.log("onChange");
         },
         onFinish: function (data) {
-        	console.log("onFinish");
+        	var jsondata = {}
+        	jsondata['id'] = 3;
+        	jsondata['data'] = [0xff, 0xff, 0x01, 0x03, 0x02, 0x01, 0x02];
+        	jsondata['value'] = data.from;
+   			sock.send(JSON.stringify(jsondata));
+   			console.log(jsondata);
         },
         onUpdate: function (data) {
-        	console.log("onUpdate");
+        	//console.log("onUpdate");
         }
     });
 	
@@ -127,16 +168,21 @@ $(document).ready(function() {
         from: 0,
         keyboard: false,
         onStart: function (data) {
-            console.log("onStart");
+            //console.log("onStart");
         },
         onChange: function (data) {
-        	console.log("onChange");
+        	//console.log("onChange");
         },
         onFinish: function (data) {
-        	console.log("onFinish");
+        	var jsondata = {}
+        	jsondata['id'] = 4;
+        	jsondata['data'] = [0xff, 0xff, 0x01, 0x03, 0x02, 0x01, 0x02];
+        	jsondata['value'] = data.from;
+   			sock.send(JSON.stringify(jsondata));
+   			console.log(jsondata);
         },
         onUpdate: function (data) {
-        	console.log("onUpdate");
+        	//console.log("onUpdate");
         }
     });
 	
@@ -147,16 +193,21 @@ $(document).ready(function() {
         from: 0,
         keyboard: false,
         onStart: function (data) {
-            console.log("onStart");
+            //console.log("onStart");
         },
         onChange: function (data) {
-        	console.log("onChange");
+        	//console.log("onChange");
         },
         onFinish: function (data) {
-        	console.log("onFinish");
+        	var jsondata = {}
+        	jsondata['id'] = 5;
+        	jsondata['data'] = [0xff, 0xff, 0x01, 0x03, 0x02, 0x01, 0x02];
+        	jsondata['value'] = data.from;
+   			sock.send(JSON.stringify(jsondata));
+   			console.log(jsondata);
         },
         onUpdate: function (data) {
-        	console.log("onUpdate");
+        	//console.log("onUpdate");
         }
     });
 	
@@ -167,18 +218,24 @@ $(document).ready(function() {
         from: 0,
         keyboard: false,
         onStart: function (data) {
-            console.log("onStart");
+            //console.log("onStart");
         },
         onChange: function (data) {
-        	console.log("onChange");
+        	//console.log("onChange");
         },
         onFinish: function (data) {
-        	console.log("onFinish");
+        	var jsondata = {}
+        	jsondata['id'] = 6;
+        	jsondata['data'] = [0xff, 0xff, 0x01, 0x03, 0x02, 0x01, 0x02];
+        	jsondata['value'] = data.from;
+   			sock.send(JSON.stringify(jsondata));
+   			console.log(jsondata);
         },
         onUpdate: function (data) {
-        	console.log("onUpdate");
+        	//console.log("onUpdate");
         }
     });
+
 
 });
 </script>
